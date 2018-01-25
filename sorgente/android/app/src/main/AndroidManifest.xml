@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,20 +30,26 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartActivity" />
-        <activity android:name=".GameActivity"
-            android:screenOrientation="portrait"
-            android:label="Gioco"/>
-        <activity android:name=".GameMenuActivity"
-            android:screenOrientation="portrait"
-            android:label="Gioco"/>
-        <activity android:name=".Classifica"
-            android:label="Classifica"/>
-        <activity android:name=".SettingsActivity"
-            android:label="Impostazioni"/>
-        <activity android:name=".ConfrontoActivity"
-            android:label="Confronto"/>
-        <activity android:name=".GameRisoluzionePartita"
-            android:label="Risultato partita"/>
+        <activity
+            android:name=".GameActivity"
+            android:label="Gioco"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GameMenuActivity"
+            android:label="Gioco"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Classifica"
+            android:label="Classifica" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Impostazioni" />
+        <activity
+            android:name=".ConfrontoActivity"
+            android:label="Confronto" />
+        <activity
+            android:name=".GameRisoluzionePartita"
+            android:label="Risultato partita" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -55,10 +62,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapActivity"
-            android:screenOrientation="portrait"
-            android:label="Visualizza dati"/>
-        <activity android:name=".ActivityVetrina"></activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="Visualizza dati"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ActivityVetrina" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
