@@ -135,6 +135,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        countDownTimer.cancel();
                         changeStatusOnExit();
                         GameActivity.this.finish();
                         startActivity(new Intent(getApplicationContext(),StartActivity.class));
@@ -274,6 +275,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        countDownTimer.cancel();
                         GameActivity.this.finish();
                         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
                         risoluzione_partita();
