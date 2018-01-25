@@ -84,19 +84,12 @@ public class ConfrontoVisualizzaFragment extends Fragment {
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv = v.findViewById(R.id.recycle_view);
 
-        FirebaseDatabase.getInstance().getReference("provinces").addValueEventListener(
+        DataUtility.getInstance().getProvinces().addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot p : dataSnapshot.getChildren()){
-                            Provincia pr = new Provincia(p);
-                            if(pr.getNomeProvincia().equals(prov1)){
-                                provincia1 = pr;
-                            }
-                            if(pr.getNomeProvincia().equals(prov2)){
-                                provincia2 = pr;
-                            }
-                        }
+                        provincia1 = dataSnapshot.child(prov1).getValue(Provincia.class);
+                        provincia2 = dataSnapshot.child(prov2).getValue(Provincia.class);
                         entrate = new HashSet<>(provincia1.getEntrate().keySet());
                         entrate.retainAll(provincia2.getEntrate().keySet());
                         entrate.retainAll(provincia1.getUscite().keySet());

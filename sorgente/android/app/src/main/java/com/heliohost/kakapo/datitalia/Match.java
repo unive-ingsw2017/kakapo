@@ -100,7 +100,7 @@ abstract class Match{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot p : dataSnapshot.getChildren()) {
-                            Provincia pr = new Provincia(p);
+                            Provincia pr = p.getValue(Provincia.class);
                             if (pr.getNomeProvincia().equals(nomeProvincia1)) {
                                 provincia1 = pr;
                             }

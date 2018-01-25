@@ -214,6 +214,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
             try {
 
                 Provincia provincia = dataSnapshot.getValue(Provincia.class);
+                Log.d(TAG, "onChildAdded: Cercando coordinate per :"+provincia.getNomeProvincia());
                 addresses = geocoder.getFromLocationName(provincia.getNomeProvincia() + ", " + provincia.getRegione() + ", Italia", 1);
                 provincia.setLongitude(addresses.get(0).getLongitude());
                 provincia.setLatitude(addresses.get(0).getLatitude());
@@ -239,7 +240,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
     public void onChildRemoved(DataSnapshot dataSnapshot) {
         Log.d(TAG, "A province has been removed!");
         try {
-            Provincia provincia = new Provincia(dataSnapshot);
+            Provincia provincia = dataSnapshot.getValue(Provincia.class);
             Log.d(TAG, "Its name is " + provincia.getNomeProvincia() + "!");
             removeProvincia(provincia);
         } catch (Exception e) {

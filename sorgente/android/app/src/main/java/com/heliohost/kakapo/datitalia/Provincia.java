@@ -36,30 +36,6 @@ class Provincia implements Serializable {
         this.regione = nomeRegione;
     }
 
-    public Provincia(DataSnapshot ds) {
-        this.nomeProvincia = ds.getKey();
-        for (DataSnapshot dsc : ds.getChildren()) {
-            switch (dsc.getKey()) {
-                case "regione":
-                    this.regione = dsc.getValue().toString();
-                    break;
-                case "entrate":
-                    this.entrate = new HashMap<>();
-                    for (DataSnapshot entrata : dsc.getChildren()) {
-                        entrate.put(entrata.getKey(), Long.parseLong(entrata.getValue().toString()));
-                    }
-                    break;
-                case "uscite":
-                    this.uscite = new HashMap<>();
-                    for (DataSnapshot uscita : dsc.getChildren()) {
-                        uscite.put(uscita.getKey(), Long.parseLong(uscita.getValue().toString()));
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     public String getNomeProvincia() {
         return nomeProvincia;
