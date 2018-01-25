@@ -14,8 +14,14 @@
     <color name="pla_abbandona">#C92424</color>
 
     <color name="colorTextView">#FFFFFF</color>
-    <color name="titolo_item">#8CE3E3</color>
+    <color name="titolo_item">#B2EBF2</color>
     <color name="genereal_botton_color">#30547E</color>
     <color name="red_loading">#F21414</color>
+    <color name="blue_button">#1565C0</color>
+    <color name="blue_button_ripple">#0D47A1</color>
+    <color name="green_button">#4CAF50</color>
+    <color name="green_button_ripple">#388E3C</color>
+    <color name="green_text">#388E3C</color>
+    <color name="red_text">#D84315</color>
 
 </resources>

@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/general_distance"
+    android:paddingRight="@dimen/general_distance">
 
-    <TextView
-        android:id="@+id/nome_player"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sgsdgsgs"/>
-    <TextView
-        android:id="@+id/nome_provincia"
-        android:layout_width="wrap_content"
-        android:text="vigigugiugui"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"/>
-    <TextView
-        android:id="@+id/punteggio"
-        android:layout_width="wrap_content"
-        android:text="sfffsfs"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nome_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/font_size2" />
+
+        <TextView
+            android:id="@+id/punteggio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/font_size2" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"/>
 </LinearLayout>

@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/posizione_player"
-        android:text="@string/punteggio_player" />
+        android:text="@string/punteggio_player"
+        android:textSize="@dimen/font_size"
+        android:paddingLeft="@dimen/font_size2"/>
 
     <TextView
         android:id="@+id/posizione_player"
@@ -31,7 +33,9 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="31dp"
-        android:text="@string/posizione_player" />
+        android:text="@string/posizione_player"
+        android:textSize="@dimen/font_size"
+        android:paddingLeft="@dimen/font_size2"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -98,9 +98,11 @@ public class GameRisoluzionePartita extends AppCompatActivity {
                     if (dbMatchActual.getCorrettePlayer1() == dbMatchActual.getCorrettePlayer2()) {
                         textViewVincitore.setText("pareggio");
                         FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer1ID()).child("points").setValue(pointsPlayer1 + 5);
-                        FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 5);
+                        if (!dbMatch.getPlayer2ID().equals("botID"))
+                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 5);
                     } else {
-                        FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 10);
+                        if (!dbMatch.getPlayer2ID().equals("botID"))
+                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 10);
                         textViewVincitore.setText(player2Name);
                     }
                 }

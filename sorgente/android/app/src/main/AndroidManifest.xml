@@ -29,12 +29,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".GameMenuActivity" />
-        <activity android:name=".Classifica" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ConfrontoActivity" />
-        <activity android:name=".GameRisoluzionePartita" />
+        <activity android:name=".GameActivity"
+            android:screenOrientation="portrait"
+            android:label="Gioco"/>
+        <activity android:name=".GameMenuActivity"
+            android:screenOrientation="portrait"
+            android:label="Gioco"/>
+        <activity android:name=".Classifica"
+            android:label="Classifica"/>
+        <activity android:name=".SettingsActivity"
+            android:label="Impostazioni"/>
+        <activity android:name=".ConfrontoActivity"
+            android:label="Confronto"/>
+        <activity android:name=".GameRisoluzionePartita"
+            android:label="Risultato partita"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,8 +55,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapActivity" />
-        <activity android:name=".ProvinceDetails" />
+        <activity android:name=".MapActivity"
+            android:screenOrientation="portrait"
+            android:label="Visualizza dati"/>
         <activity android:name=".ActivityVetrina"></activity>
     </application>
 

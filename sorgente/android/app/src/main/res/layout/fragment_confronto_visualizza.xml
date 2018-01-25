@@ -13,14 +13,20 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="@dimen/font_size"
+        android:layout_marginTop="@dimen/general_distance"
+        android:layout_marginBottom="@dimen/general_distance"/>
 
     <TextView
         android:id="@+id/nome_prov_2"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="@dimen/font_size"
+        android:layout_marginTop="@dimen/general_distance"
+        android:layout_marginBottom="@dimen/general_distance"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="wrap_content"

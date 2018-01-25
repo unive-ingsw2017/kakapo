@@ -22,12 +22,9 @@
     <string name="selectProvincia">Seleziona la tua provincia</string>
     <string name="action_settings">Impostazioni</string>
     <string name="signuot">Esci</string>
-    <string name="play">play</string>
-    <string name="view_data">View Data</string>
+    <string name="play">Gioca</string>
+    <string name="view_data">Dati</string>
     <string name="play_menu">Play Menù</string>
-    <string name="quick_game">Quick Game</string>
-    <string name="invite_player">Invite Player</string>
-    <string name="show_invitations">Show Invitations</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -113,9 +110,9 @@
     <string name="mod_regionale">Regione</string>
     <string name="mod_random">Random</string>
     <string name="mod_classifica">Classifica</string>
-    <string name="confronto">Confronta</string>
-    <string name="str_confronto_1">Confronta</string>
-    <string name="str_confront_2">con</string>
+    <string name="confronto">Esegui confronto</string>
+    <string name="str_confronto_1">Scegli due province per il confronto</string>
+    <string name="str_confront_2">VS</string>
     <string name="turismo">Turismo</string>
     <string name="comuni">Spese comunali</string>
     <string name="title_activity_settings2">Settings</string>
@@ -137,4 +134,7 @@
     <string name="map_snippet">+ %1$d € \n - %2$d €</string>
     <string name="cambio_provincia_primo_accesso">Questo è il tuo primo accesso, seleziona la tua provincia di appartenenza:</string>
     <string name="avvio_bot_message">Non è stato trovato alcun avversario al momento, vuoi giocare contro un giocatore virtuale o vuoi continuare ad attendere?</string>
+    <string name="button_confronto">Confronta</string>
+    <string name="game_text">Sfida i tuoi avversari online!</string>
+    <string name="game_text2">In quale modalità vuoi giocare?</string>
 </resources>

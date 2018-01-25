@@ -78,7 +78,7 @@ public class Classifica extends AppCompatActivity {
                         posizionePlayer = findViewById(R.id.posizione_player);
                         Log.d(TAG,"ENTRO");
                         posizionePlayer.setText(posizionePlayer.getText()+"  "+i);
-                        punteggioPlayer.setText(punteggioPlayer.getText()+"  "+points);
+                        punteggioPlayer.setText(punteggioPlayer.getText()+"  "+points+" pt");
                     }
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.INVISIBLE);
