@@ -287,6 +287,8 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if (botTimer != null)
+            botTimer.cancel();
         if(randomMatchMaker != null)
             randomMatchMaker.cancelSearch();
         if(nationalMatchMaker != null)
