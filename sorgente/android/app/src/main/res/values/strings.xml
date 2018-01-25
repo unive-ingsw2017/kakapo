@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">DatItalia</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="campi_vuoti">Completare i campi mancanti</string>
+    <string name="credenziali">Credenziali sbagliate, riprovare</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="common_signup_button_text">SIGN UP</string>
+    <string name="selectProvincia">Seleziona la tua provincia</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="signuot">Esci</string>
+    <string name="play">play</string>
+    <string name="view_data">View Data</string>
+    <string name="play_menu">Play Menù</string>
+    <string name="quick_game">Quick Game</string>
+    <string name="invite_player">Invite Player</string>
+    <string name="show_invitations">Show Invitations</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_id">1064984812324</string>
+    <string name="signin_failure">Sign in Failure</string>
+    <string name="signin_other_error">Other Error in Sign In</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <!-- Stringhe modalità -->
+    <string name="mod_nazionale">Nazionale</string>
+    <string name="mod_regionale">Regione</string>
+    <string name="mod_random">Random</string>
+    <string name="mod_classifica">Classifica</string>
+    <string name="confronto">Confronta</string>
+    <string name="str_confronto_1">Confronta</string>
+    <string name="str_confront_2">con</string>
+    <string name="turismo">Turismo</string>
+    <string name="comuni">Spese comunali</string>
+    <string name="title_activity_settings2">Settings</string>
+    <string name="cambio_provincia">Seleziona la provincia di appartenenza</string>
+    <string name="cambio_username">Modifica i tuoi dati</string>
+    <string name="settings_response">Modifica avvenuta con successo</string>
+    <string name="settings_errore_inserimento">Devi inserire un username</string>
+    <string name="info_sviluppatori">tanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfo</string>
+    <string name="punteggio_player">Punteggio personale:</string>
+    <string name="posizione_player">Posizione classifica:</string>
+
+    <string name="vincitore">Vincitore</string>
+    <string name="abbandona_gioco">Sicuro di voler abbandonare la partita?</string>
+    <string name="STATUS_ON_WAIT">onWait</string>
+
+    <string name="all_provinces">Stai visualizzando tutte le province</string>
+    <string name="filtered_provinces">Stai visualizzando i dati relativi a:</string>
+    <string name="select_comparto">Seleziona un comparto</string>
+    <string name="map_snippet">+ %1$d € \n - %2$d €</string>
+    <string name="cambio_provincia_primo_accesso">Questo è il tuo primo accesso, seleziona la tua provincia di appartenenza:</string>
+    <string name="avvio_bot_message">Non è stato trovato alcun avversario al momento, vuoi giocare contro un giocatore virtuale o vuoi continuare ad attendere?</string>
+</resources>

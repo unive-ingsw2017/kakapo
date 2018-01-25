@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D79D3</color>
+    <color name="colorPrimaryDark">#1354a0</color>
+    <color name="colorAccent"> #ffbf80</color>
+    <color name="white">#FFFFFF</color>
+    <color name="cursorAccent">#431353</color>
+    <color name="controlNormal">#241346</color>
+    <color name="controlActivated">#235457</color>
+
+    <!-- PlayActivity: PLA  -->
+    <color name="pla_button_1">#5169CC</color>
+    <color name="pla_button_2">#96286C</color>
+    <color name="pla_abbandona">#C92424</color>
+
+    <color name="colorTextView">#FFFFFF</color>
+    <color name="titolo_item">#8CE3E3</color>
+    <color name="genereal_botton_color">#30547E</color>
+    <color name="red_loading">#F21414</color>
+
+</resources>
