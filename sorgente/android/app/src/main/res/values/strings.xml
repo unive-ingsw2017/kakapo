@@ -131,7 +131,7 @@
     <string name="all_provinces">Stai visualizzando tutte le province</string>
     <string name="filtered_provinces">Stai visualizzando i dati relativi a:</string>
     <string name="select_comparto">Seleziona un comparto</string>
-    <string name="map_snippet">+ %1$d € \n - %2$d €</string>
+    <string name="map_snippet">+ %1$d €\n- %2$d €</string>
     <string name="cambio_provincia_primo_accesso">Questo è il tuo primo accesso, seleziona la tua provincia di appartenenza:</string>
     <string name="avvio_bot_message">Non è stato trovato alcun avversario al momento, vuoi giocare contro un giocatore virtuale o vuoi continuare ad attendere?</string>
     <string name="button_confronto">Confronta</string>

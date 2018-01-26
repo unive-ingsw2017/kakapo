@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
@@ -46,6 +47,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
     private Geocoder geocoder;
     private MapManager mapManager;
     private Map<Marker, String> markers;
+    private Map<Marker, Provincia> provByMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,6 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         setupText();
         setupSpinner();
         setupData();
-
 
 
     }
@@ -85,6 +86,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
 
     void setupMap() {
         markers = new HashMap<>();
+        provByMarker = new HashMap<>();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
@@ -96,6 +98,12 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
             public void onMapLoaded() {
                 super.onMapLoaded();
                 mProvinceRef.addChildEventListener(MapActivity.this);
+            }
+
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                super.onMapReady(googleMap);
+                googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
             }
         };
         // getSupportFragmentManager().beginTransaction().replace(R.id.map_fragment_container, mapFragment).commit();
@@ -180,6 +188,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
                     uscita = provincia.getUscite().get(compartoFilter);
                 }
                 snippet = getString(R.string.map_snippet, entrata, uscita);
+                Log.d(TAG, "showProvincia: SNIPPET :"+snippet);
             }
             mapManager.insertMarker(
                     DataUtility.getInstance().getProvinciaId(provincia), // internal id, use only alphanumeric characters
@@ -208,13 +217,13 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         Log.d(TAG, "A new province has come!");
-        if(!dataSnapshot.hasChild("longitude") || !dataSnapshot.hasChild("latitude")) {
+        if (!dataSnapshot.hasChild("longitude") || !dataSnapshot.hasChild("latitude")) {
             Log.d(TAG, "onChildAdded: WOW STA PROVINCIA NON HA LONGITUDINE O LATITUDINE");
             List<Address> addresses;
             try {
 
                 Provincia provincia = dataSnapshot.getValue(Provincia.class);
-                Log.d(TAG, "onChildAdded: Cercando coordinate per :"+provincia.getNomeProvincia());
+                Log.d(TAG, "onChildAdded: Cercando coordinate per :" + provincia.getNomeProvincia());
                 addresses = geocoder.getFromLocationName(provincia.getNomeProvincia() + ", " + provincia.getRegione() + ", Italia", 1);
                 provincia.setLongitude(addresses.get(0).getLongitude());
                 provincia.setLatitude(addresses.get(0).getLatitude());
@@ -227,7 +236,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
 
         try {
             Provincia provincia = dataSnapshot.getValue(Provincia.class);
-            Log.d(TAG, "Its name is " + provincia.getNomeProvincia() + "!"+provincia.getLatitude()+","+provincia.getLongitude());
+            Log.d(TAG, "Its name is " + provincia.getNomeProvincia() + "!" + provincia.getLatitude() + "," + provincia.getLongitude());
             addProvincia(provincia);
         } catch (Exception e) {
             Log.d(TAG, "Ricevuta una provincia che non è stato possibile elaborare per aggiungerla alla mappa.");
@@ -315,5 +324,33 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         mSpinnerListener = null;
         mSpinnerAdapter = null;
         comparti.clear();
+    }
+
+    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter() {
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_provincia, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            final String[] content = marker.getSnippet().split("\n");
+
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.nome_prov));
+            tvTitle.setText(marker.getTitle());
+            TextView tvEntrata = ((TextView) myContentsView.findViewById(R.id.entrata_prov));
+            tvEntrata.setText(content[0]);
+            TextView tvUscita = ((TextView) myContentsView.findViewById(R.id.uscita_prov));
+            tvUscita.setText(content[1]);
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
     }
 }

@@ -3,6 +3,8 @@ package com.heliohost.kakapo.datitalia;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -86,6 +88,7 @@ public class MapManager implements OnMapReadyCallback, GoogleMap.OnMapLoadedCall
     void insertMarker(Object id, MarkerOptions markerOptions) {
         if (mMap != null) {
             Log.d(TAG, "Really inserting a marker");
+
             Marker marker = mMap.addMarker(markerOptions);
             markers.put(marker, id);
             markersById.put(id, marker);
@@ -208,6 +211,7 @@ public class MapManager implements OnMapReadyCallback, GoogleMap.OnMapLoadedCall
     public SupportMapFragment getSupportMapFragment(){
         return this.fragment;
     }
+
 
 
 }
