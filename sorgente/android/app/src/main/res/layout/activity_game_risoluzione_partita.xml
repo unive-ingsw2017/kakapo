@@ -15,40 +15,64 @@
         android:theme="@style/AppTheme2"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="#FFFFFF" />
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vincitore" />
 
     <TextView
         android:id="@+id/vincitore"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/general_distance"
+        android:paddingRight="@dimen/general_distance"
+        android:textSize="@dimen/font_size"
+        android:gravity="center"
+        android:textStyle="bold"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/general_distance"
+        android:paddingRight="@dimen/general_distance">
         <TextView
             android:id="@+id/nome1"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size2"/>
         <TextView
             android:id="@+id/corretta"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size2"/>
         <TextView
             android:id="@+id/nome2"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size2"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recycle_view"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="376dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+    <Button
+        android:id="@+id/esci"
+        android:layout_width="@dimen/button_rettangolo_width"
+        android:layout_height="@dimen/button_rettangolo_height"
+        android:background="@drawable/button_general"
+        android:text="Esci"
+        android:layout_marginTop="@dimen/general_distance"
+        android:layout_marginBottom="@dimen/general_distance"
+        android:paddingTop="@dimen/general_distance"
+        android:paddingBottom="@dimen/general_distance"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size"
+        android:textAllCaps="false"/>
+    </LinearLayout>
 </LinearLayout>

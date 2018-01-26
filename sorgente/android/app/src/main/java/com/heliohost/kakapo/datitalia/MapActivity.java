@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,11 +57,16 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DataUtility.getInstance().googleConnection(this,this);
+
         if (savedInstanceState != null)
             compartoFilter = savedInstanceState.getString("compartoFilter", null);
 
         setupMap();
-        setupText();
+        //setupText();
         setupSpinner();
         setupData();
 
@@ -70,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         if (provinces == null)
             provinces = new HashMap<>();
     }
-
+/*
     void setupText() {
         if (compartoFilter != null) {
             findViewById(R.id.map_text).setVisibility(View.VISIBLE);
@@ -83,7 +92,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
             ((TextView) findViewById(R.id.map_text)).setText(R.string.all_provinces);
         }
     }
-
+*/
     void setupMap() {
         markers = new HashMap<>();
         provByMarker = new HashMap<>();
@@ -187,7 +196,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
                 if (provincia.getUscite().containsKey(compartoFilter)) {
                     uscita = provincia.getUscite().get(compartoFilter);
                 }
-                snippet = getString(R.string.map_snippet, entrata, uscita);
+                snippet = getString(R.string.map_snippet, entrata/100, uscita/100);
                 Log.d(TAG, "showProvincia: SNIPPET :"+snippet);
             }
             mapManager.insertMarker(
@@ -293,14 +302,14 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
                         Log.d(TAG, "that seems to correspond to " + compartoFilter);
                     else
                         Log.d(TAG, "that seems to correspond to nothing");
-                    setupText();
+                    //setupText();
                     refreshProvinces();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     compartoFilter = null;
-                    setupText();
+                    //setupText();
                     refreshProvinces();
                 }
             };
@@ -352,5 +361,34 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         public View getInfoWindow(Marker marker) {
             return null;
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            DataUtility.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            return true;
+        }
+        if (id == R.id.impostazioni) {
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        }
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

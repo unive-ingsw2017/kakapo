@@ -23,5 +23,13 @@
     <color name="green_button_ripple">#388E3C</color>
     <color name="green_text">#388E3C</color>
     <color name="red_text">#D84315</color>
+    <color name="wrong_button">#C62828</color>
+    <color name="wrong_button_ripple">#B71C1C</color>
+    <color name="correct_button">#4CAF50</color>
+    <color name="correct_button_ripple">#43A047</color>
+    <color name="game_button">#80CBC4</color>
+    <color name="game_button_ripple">#4DB6AC</color>
+    <color name="grey">#E0E0E0</color>
+
 
 </resources>

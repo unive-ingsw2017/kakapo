@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +43,8 @@ public class GameRisoluzionePartita extends AppCompatActivity {
     private TextView nome1;
     private TextView nome2;
     private TextView corretta;
-    private boolean alreadyPassatoDaQui = false;
+    private Button esci;
+    private static final String VINCITORE = "Il vincitore è ";
 
 
     private void getPlayer2Name() {
@@ -87,23 +91,22 @@ public class GameRisoluzionePartita extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("games").child(dbMatch.getGameRef()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                alreadyPassatoDaQui = true;
                 dbMatchActual = dataSnapshot.getValue(DBMatch.class);
                 Log.d("BOOOOOO", "onDataChange: " + dbMatchActual.toString());
                 if (dbMatchActual.getCorrettePlayer1() > dbMatchActual.getCorrettePlayer2()) {
-                    textViewVincitore.setText(player1Name);
-                    FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer1ID()).child("points").setValue(pointsPlayer1 + 10);
+                    textViewVincitore.setText(VINCITORE + player1Name);
+                    FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer1ID()).child("points").setValue(pointsPlayer1 - 10);
 
                 } else {
                     if (dbMatchActual.getCorrettePlayer1() == dbMatchActual.getCorrettePlayer2()) {
-                        textViewVincitore.setText("pareggio");
-                        FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer1ID()).child("points").setValue(pointsPlayer1 + 5);
+                        textViewVincitore.setText("Pareggio");
+                        FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer1ID()).child("points").setValue(pointsPlayer1 - 5);
                         if (!dbMatch.getPlayer2ID().equals("botID"))
-                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 5);
+                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 - 5);
                     } else {
                         if (!dbMatch.getPlayer2ID().equals("botID"))
-                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 + 10);
-                        textViewVincitore.setText(player2Name);
+                            FirebaseDatabase.getInstance().getReference().child("users").child(dbMatch.getPlayer2ID()).child("points").setValue(pointsPlayer2 - 10);
+                        textViewVincitore.setText(VINCITORE + player2Name);
                     }
                 }
                 mAdapter = new RisoluzionePartitaAdapter(datiList);
@@ -132,8 +135,19 @@ public class GameRisoluzionePartita extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_risoluzione_partita);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
         dbMatch = (DBMatch) getIntent().getSerializableExtra("dbMatch");
+        esci = findViewById(R.id.esci);
+
+        esci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), StartActivity.class));
+                finish();
+            }
+        });
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         playerID = (uid.equals(dbMatch.getPlayer1ID())) ? dbMatch.getPlayer1ID() : dbMatch.getPlayer2ID();
@@ -148,5 +162,6 @@ public class GameRisoluzionePartita extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, StartActivity.class));
+        finish();
     }
 }

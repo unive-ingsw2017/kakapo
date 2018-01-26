@@ -174,6 +174,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(this,StartActivity.class));
         finish();
     }
 }

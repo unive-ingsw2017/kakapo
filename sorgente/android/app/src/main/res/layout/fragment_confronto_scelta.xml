@@ -12,31 +12,34 @@
         android:id="@+id/textView4"
         android:layout_width="202dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:text="@string/str_confronto_1"
-        android:textSize="@dimen/font_size"
         android:textAlignment="center"
+        android:textSize="@dimen/font_size"
         app:layout_constraintBottom_toTopOf="@+id/spinner_provincia1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="202dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:textSize="@dimen/font_size"
+        android:layout_marginBottom="29dp"
         android:text="@string/str_confront_2"
         android:textAlignment="center"
+        android:textSize="@dimen/font_size"
         app:layout_constraintBottom_toTopOf="@+id/spinner_provincia2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_provincia2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="176dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="189dp"
+        android:background="@drawable/textview_border"
         android:entries="@array/province"
         android:spinnerMode="dialog"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,9 +47,10 @@
 
     <Spinner
         android:id="@+id/spinner_provincia1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="176dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="29dp"
+        android:background="@drawable/textview_border"
         android:entries="@array/province"
         android:spinnerMode="dialog"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
@@ -57,12 +61,14 @@
         android:id="@+id/btn_confronta"
         android:layout_width="@dimen/button_rettangolo_width"
         android:layout_height="@dimen/button_rettangolo_height"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="45dp"
-        android:text="@string/button_confronto"
-        app:layout_constraintEnd_toEndOf="@+id/spinner_provincia2"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_provincia2"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/button_confronto"
-        android:textColor="@color/white"/>
+        android:text="@string/button_confronto"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_provincia2" />
 
 </android.support.constraint.ConstraintLayout>

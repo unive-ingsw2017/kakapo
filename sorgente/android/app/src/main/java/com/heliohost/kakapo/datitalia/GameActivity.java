@@ -82,8 +82,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         risposta2 = findViewById(R.id.risposta_2);
         textViewDomanda = findViewById(R.id.domanda);
 
-        risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
-        risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
+        //risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
+        //risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
+        risposta1.setBackground(getDrawable(R.drawable.game_button));
+        risposta2.setBackground(getDrawable(R.drawable.game_button));
         abbandonaButton.setOnClickListener(this);
         risposta1.setOnClickListener(this);
         risposta2.setOnClickListener(this);
@@ -93,7 +95,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         domanda = dbRef.getQuestions().get(actualQuestion).getQuestionType() + " " + dbRef.getPlayer1Province() + " o " + dbRef.getPlayer2Province() + " riguardo a " + dbRef.getQuestions().get(actualQuestion).getComparto() + "?";
         textViewDomanda.setText(domanda);
-        int seconds = dbRef.getQuestions().size() * 5000;
+        int seconds = dbRef.getQuestions().size() * 7000;
+        mTimer.setText(""+(seconds/1000));
         // tempo totale
 
         countDownTimer = new CountDownTimer(seconds,1000) {
@@ -214,17 +217,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (actualAnswer == answer) {
                     if (actualAnswer == 1)
-                        risposta1.setBackgroundColor(GREEN);
+                        risposta1.setBackground(getDrawable(R.drawable.button_correct));
                     else
-                        risposta2.setBackgroundColor(GREEN);
+                        risposta2.setBackground(getDrawable(R.drawable.button_correct));
                 } else {
                     if (actualAnswer == 1) {
-                        risposta1.setBackgroundColor(GREEN);
-                        risposta2.setBackgroundColor(RED);
+                        risposta1.setBackground(getDrawable(R.drawable.button_correct));
+                        risposta2.setBackground(getDrawable(R.drawable.button_wrong));
 
                     } else {
-                        risposta1.setBackgroundColor(RED);
-                        risposta2.setBackgroundColor(GREEN);
+                        risposta1.setBackground(getDrawable(R.drawable.button_wrong));
+                        risposta2.setBackground(getDrawable(R.drawable.button_correct));
                     }
                 }
                 getCountDownTimer_singol.start();
@@ -312,8 +315,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onFinish() {
-            risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
-            risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
+            //risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
+            //risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
+            risposta1.setBackground(getDrawable(R.drawable.game_button));
+            risposta2.setBackground(getDrawable(R.drawable.game_button));
             risposta1.setClickable(true);
             risposta2.setClickable(true);
         }

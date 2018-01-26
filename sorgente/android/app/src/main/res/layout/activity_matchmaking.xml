@@ -20,5 +20,6 @@
         android:layout_alignTop="@+id/progressBar3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="Caricamento partita.." />
+        android:text="Caricamento partita.."
+        android:textSize="@dimen/font_size2"/>
 </RelativeLayout>

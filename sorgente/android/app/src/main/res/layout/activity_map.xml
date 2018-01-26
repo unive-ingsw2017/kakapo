@@ -21,37 +21,25 @@
         android:layout_height="fill_parent"
         android:layout_marginTop="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/map_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/all_provinces"
-            android:layout_alignParentStart="true"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/map_filtered"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAlignment="center"
-            android:visibility="invisible"
-            android:layout_below="@id/map_text" />
-
         <LinearLayout
             android:id="@+id/map_fragment_container"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_above="@id/comparti_spinner"
-            android:layout_below="@+id/map_filtered">
+            >
 
         </LinearLayout>
 
         <Spinner
             android:id="@+id/comparti_spinner"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/textview_border"
+            android:spinnerMode="dialog"
+            android:textAlignment="center" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

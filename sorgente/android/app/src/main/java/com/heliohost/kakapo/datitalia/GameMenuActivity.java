@@ -252,7 +252,6 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onMatchUpdate(DBMatch match) {
         Log.d(TAG, "onMatchUpdate: DBMatch Updated "+match.toString());
-        Toast.makeText(this, "DBMatch Updated!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -373,7 +372,7 @@ public class GameMenuActivity extends AppCompatActivity
                                 Match2 match2 = new Match2(provincia1,provincia2);
                                 dbMatch.setQuestions(match2.getQuestions());
                                 for (MatchQuestion matchQuestion : dbMatch.getQuestions()){
-                                    int randomNum1 = ThreadLocalRandom.current().nextInt(0, 2);
+                                    int randomNum1 = ThreadLocalRandom.current().nextInt(1, 2);
                                     matchQuestion.setPlayer2response(randomNum1);
                                 }
                                 String db = FirebaseDatabase.getInstance().getReference().child("games").push().getKey();

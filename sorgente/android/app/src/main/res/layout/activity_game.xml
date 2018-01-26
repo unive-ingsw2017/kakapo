@@ -25,7 +25,7 @@
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="33dp"
         android:layout_marginTop="36dp"
         android:paddingLeft="15dp"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="56dp"
-        android:text="20"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +61,12 @@
         android:layout_marginEnd="31dp"
         android:layout_marginStart="31dp"
         android:layout_marginTop="145dp"
+        android:background="@drawable/textview_border"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/font_size"
+        android:layout_marginLeft="@dimen/general_distance"
+        android:layout_marginRight="@dimen/general_distance"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,7 +76,8 @@
         android:layout_height="120dp"
         android:layout_marginStart="31dp"
         android:text=""
-        android:background="?attr/selectableItemBackground"
+        android:textColor="@color/white"
+        android:background="@drawable/game_button"
         app:layout_constraintBaseline_toBaselineOf="@+id/risposta_2"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -82,17 +88,20 @@
         android:layout_marginEnd="32dp"
         android:layout_marginTop="36dp"
         android:text=""
-        android:background="?attr/selectableItemBackground"
+        android:textColor="@color/white"
+
+        android:background="@drawable/game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/domanda" />
 
     <Button
         android:id="@+id/abbandona"
-        android:layout_width="174dp"
-        android:layout_height="34dp"
+        android:layout_width="@dimen/button_rettangolo_width"
+        android:layout_height="@dimen/button_rettangolo_height"
         android:layout_marginBottom="36dp"
-        android:background="@color/pla_abbandona"
-        android:text="Abbandona"
+        android:background="@drawable/abbandona_button"
+        android:text="@string/abbandona"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

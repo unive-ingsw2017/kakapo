@@ -120,7 +120,9 @@
     <string name="cambio_username">Modifica i tuoi dati</string>
     <string name="settings_response">Modifica avvenuta con successo</string>
     <string name="settings_errore_inserimento">Devi inserire un username</string>
-    <string name="info_sviluppatori">tanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfotanteinfo</string>
+    <string name="info_sviluppatori_1">DatItalia è un’applicazione nata da un progetto svolto nel corso “Ingegneria del Software” dell’Università di Informatica Ca’Foscari tenuto dal docente Agostino Cortesi.
+</string>
+    <string name="info_sviluppatori_2">Gli sviluppatori di questo progetto sono gli studenti: Simone Scaboro, Gregory Sech, Alessia Marostica, Diletta Olliaro.</string>
     <string name="punteggio_player">Punteggio personale:</string>
     <string name="posizione_player">Posizione classifica:</string>
 
@@ -137,4 +139,5 @@
     <string name="button_confronto">Confronta</string>
     <string name="game_text">Sfida i tuoi avversari online!</string>
     <string name="game_text2">In quale modalità vuoi giocare?</string>
+    <string name="abbandona">Abbandona</string>
 </resources>
