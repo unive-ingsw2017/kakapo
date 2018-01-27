@@ -346,7 +346,7 @@ public class GameMenuActivity extends AppCompatActivity
                                 Provincia provincia2 = dataSnapshot.child("provinces").child(dbMatch.getPlayer2Province()).getValue(Provincia.class);
                                 Match2 match2 = new Match2(provincia1, provincia2);
                                 dbMatch.setQuestions(match2.getQuestions());
-                                for (MatchQuestion matchQuestion : dbMatch.getQuestions()){
+                                for (MatchQuestion matchQuestion : dbMatch.getQuestions()) {
                                     int randomNum1 = ThreadLocalRandom.current().nextInt(1, 3);
                                     matchQuestion.setPlayer2response(randomNum1);
                                     Log.d("BOT", "onDataChange: BOT" + randomNum1);
