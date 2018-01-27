@@ -176,10 +176,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         else
                             sbagliate++;
                     }
+                    if(dbRef.getPlayer2ID().equals("botID")){
+                       int corretteAv = 0;
+                       int sbagliateAv = 0;
+                        for(MatchQuestion matchQuestion : dbMatchActual.getQuestions()){
+                            Integer rispostaCorrettaAv = matchQuestion.getCorrectAnswer();
+                            Integer rispostaDataAv = matchQuestion.getPlayer2response();
+                            if(rispostaCorrettaAv == rispostaDataAv)
+                                corretteAv++;
+                            else
+                                sbagliateAv++;
+                        }
+                        FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child("correttePlayer2").setValue(corretteAv);
+                        FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child("sbagliatePlayer2").setValue(sbagliateAv);
+                    }
                     String playerCorrette = (uid.equals(dbRef.getPlayer1ID())) ? "correttePlayer1" : "correttePlayer2";
                     String playerSbagliate = (uid.equals(dbRef.getPlayer1ID())) ? "sbagliatePlayer1" : "sbagliatePlayer2";
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerCorrette).setValue(corrette);
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerSbagliate).setValue(sbagliate);
+                    Log.d("RISP", "onDataChange: risposte 1 " + corrette);
+                    Log.d("RISP", "onDataChange: risposte 1 " + corrette );
                     corrette = 0;
                     sbagliate = 0;
                     Intent intent1 = new Intent(getApplicationContext(),GameRisoluzionePartita.class);
