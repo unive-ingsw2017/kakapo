@@ -41,9 +41,9 @@ public class RisoluzionePartitaAdapter   extends RecyclerView.Adapter<Risoluzion
     @Override
     public void onBindViewHolder(RisoluzionePartitaAdapter.MyViewHolder holder, int position) {
         RisoluzionePartita gameDati = datiList.get(position);
-        holder.rispostaGiusta.setText("" + gameDati.getRispostaEsatta());
-        holder.risposta1.setText("" + gameDati.getRispostaPlayer1());
-        holder.risposta2.setText("" + gameDati.getRispostaPlayer2());
+        holder.rispostaGiusta.setText(gameDati.getRispostaEsatta());
+        holder.risposta1.setText(gameDati.getRispostaPlayer1());
+        holder.risposta2.setText(gameDati.getRispostaPlayer2());
         holder.domanda.setText(gameDati.getDomanda());
     }
 

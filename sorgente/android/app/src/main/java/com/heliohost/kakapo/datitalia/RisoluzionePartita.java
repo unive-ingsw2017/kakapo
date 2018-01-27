@@ -5,12 +5,12 @@ package com.heliohost.kakapo.datitalia;
  */
 
 public class RisoluzionePartita {
-    private Integer rispostaPlayer1;
-    private Integer rispostaPlayer2;
-    private Integer rispostaEsatta;
+    private String rispostaPlayer1;
+    private String rispostaPlayer2;
+    private String rispostaEsatta;
     private String domanda;
 
-    public RisoluzionePartita(Integer rispostaPlayer1, Integer rispostaPlayer2, Integer rispostaEsatta, String domanda) {
+    public RisoluzionePartita(String rispostaPlayer1, String rispostaPlayer2, String rispostaEsatta, String domanda) {
         this.rispostaPlayer1 = rispostaPlayer1;
         this.rispostaPlayer2 = rispostaPlayer2;
         this.rispostaEsatta = rispostaEsatta;
@@ -18,15 +18,15 @@ public class RisoluzionePartita {
     }
 
 
-    public Integer getRispostaPlayer1() {
+    public String getRispostaPlayer1() {
         return rispostaPlayer1;
     }
 
-    public Integer getRispostaPlayer2() {
+    public String getRispostaPlayer2() {
         return rispostaPlayer2;
     }
 
-    public Integer getRispostaEsatta() {
+    public String getRispostaEsatta() {
         return rispostaEsatta;
     }
 
