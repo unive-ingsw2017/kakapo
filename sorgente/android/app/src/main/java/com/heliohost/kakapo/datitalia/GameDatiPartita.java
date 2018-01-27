@@ -32,7 +32,6 @@ public class GameDatiPartita extends Fragment {
     private RecyclerView rv;
     private List<GameDatiPrepartita> datiList = new ArrayList<>();
     private GameDatiAdapter mAdapter;
-    private String[] staticComparti = new String[]{"comparto1", "comparto2", "compart32", "comparto4", "comparto5", "comparto6", "comparto7", "comparto8", "comparto9", "comparto10", "comparto11"};
     private TextView timer;
     private TextView nomeProv;
     private ProgressBar progressBar;

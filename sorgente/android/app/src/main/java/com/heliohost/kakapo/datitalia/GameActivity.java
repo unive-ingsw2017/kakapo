@@ -36,6 +36,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // contatori
     private int corrette = 0;
     private int sbagliate = 0;
+    private int corretteAv = 0;
+    private int sbagliateAv = 0;
     private int actualQuestion = 0;
     private int totalQuestions;
     private int time = 100;
@@ -172,8 +174,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             sbagliate++;
                     }
                     if(dbRef.getPlayer2ID().equals("botID")){
-                       int corretteAv = 0;
-                       int sbagliateAv = 0;
                         for(MatchQuestion matchQuestion : dbMatchActual.getQuestions()){
                             Integer rispostaCorrettaAv = matchQuestion.getCorrectAnswer();
                             Integer rispostaDataAv = matchQuestion.getPlayer2response();
@@ -193,6 +193,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("RISP", "onDataChange: risposte 1 " + corrette );
                     corrette = 0;
                     sbagliate = 0;
+                    corretteAv = 0;
+                    sbagliateAv = 0;
                     Intent intent1 = new Intent(getApplicationContext(), GameRisoluzionePartita.class);
                     intent1.putExtra("dbMatch", dbMatchActual);
                     startActivity(intent1);
