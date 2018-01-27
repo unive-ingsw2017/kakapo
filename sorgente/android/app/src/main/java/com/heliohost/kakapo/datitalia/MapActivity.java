@@ -3,7 +3,6 @@ package com.heliohost.kakapo.datitalia;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,13 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +56,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DataUtility.getInstance().googleConnection(this,this);
+        DataUtility.getInstance().googleConnection(this, this);
 
         if (savedInstanceState != null)
             compartoFilter = savedInstanceState.getString("compartoFilter", null);
@@ -79,20 +75,21 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         if (provinces == null)
             provinces = new HashMap<>();
     }
-/*
-    void setupText() {
-        if (compartoFilter != null) {
-            findViewById(R.id.map_text).setVisibility(View.VISIBLE);
-            findViewById(R.id.map_filtered).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.map_text)).setText(R.string.filtered_provinces);
-            ((TextView) findViewById(R.id.map_filtered)).setText(compartoFilter);
-        } else {
-            findViewById(R.id.map_text).setVisibility(View.VISIBLE);
-            findViewById(R.id.map_filtered).setVisibility(View.INVISIBLE);
-            ((TextView) findViewById(R.id.map_text)).setText(R.string.all_provinces);
+
+    /*
+        void setupText() {
+            if (compartoFilter != null) {
+                findViewById(R.id.map_text).setVisibility(View.VISIBLE);
+                findViewById(R.id.map_filtered).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.map_text)).setText(R.string.filtered_provinces);
+                ((TextView) findViewById(R.id.map_filtered)).setText(compartoFilter);
+            } else {
+                findViewById(R.id.map_text).setVisibility(View.VISIBLE);
+                findViewById(R.id.map_filtered).setVisibility(View.INVISIBLE);
+                ((TextView) findViewById(R.id.map_text)).setText(R.string.all_provinces);
+            }
         }
-    }
-*/
+    */
     void setupMap() {
         markers = new HashMap<>();
         provByMarker = new HashMap<>();
@@ -196,8 +193,8 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
                 if (provincia.getUscite().containsKey(compartoFilter)) {
                     uscita = provincia.getUscite().get(compartoFilter);
                 }
-                snippet = getString(R.string.map_snippet, entrata/100, uscita/100);
-                Log.d(TAG, "showProvincia: SNIPPET :"+snippet);
+                snippet = getString(R.string.map_snippet, entrata / 100, uscita / 100);
+                Log.d(TAG, "showProvincia: SNIPPET :" + snippet);
             }
             mapManager.insertMarker(
                     DataUtility.getInstance().getProvinciaId(provincia), // internal id, use only alphanumeric characters
@@ -335,33 +332,6 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
         comparti.clear();
     }
 
-    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
-        private final View myContentsView;
-
-        MyInfoWindowAdapter() {
-            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_provincia, null);
-        }
-
-        @Override
-        public View getInfoContents(Marker marker) {
-
-            final String[] content = marker.getSnippet().split("\n");
-
-            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.nome_prov));
-            tvTitle.setText(marker.getTitle());
-            TextView tvEntrata = ((TextView) myContentsView.findViewById(R.id.entrata_prov));
-            tvEntrata.setText(content[0]);
-            TextView tvUscita = ((TextView) myContentsView.findViewById(R.id.uscita_prov));
-            tvUscita.setText(content[1]);
-            return myContentsView;
-        }
-
-        @Override
-        public View getInfoWindow(Marker marker) {
-            return null;
-        }
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -390,5 +360,33 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter() {
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_provincia, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            final String[] content = marker.getSnippet().split("\n");
+
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.nome_prov));
+            tvTitle.setText(marker.getTitle());
+            TextView tvEntrata = ((TextView) myContentsView.findViewById(R.id.entrata_prov));
+            tvEntrata.setText(content[0]);
+            TextView tvUscita = ((TextView) myContentsView.findViewById(R.id.uscita_prov));
+            tvUscita.setText(content[1]);
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
     }
 }

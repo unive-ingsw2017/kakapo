@@ -3,7 +3,6 @@ package com.heliohost.kakapo.datitalia;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,14 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
-import java.io.Serializable;
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "StartActivity";
-
+    private GoogleApiClient mGoogleApiClient;
     private User utente;
     private DatabaseReference userReference;
     private ValueEventListener userLoaded;
@@ -59,7 +53,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        DataUtility.getInstance().googleConnection(this,this);
+        DataUtility.getInstance().googleConnection(this, this);
     }
 
     private void dialog_choose_provincia() {
@@ -111,6 +105,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -131,12 +126,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
-
     @Override
     public void onClick(View v) {
         Intent i;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_game:
                 Log.i(TAG, "Game button pressed!");
                 i = new Intent(getApplicationContext(), GameMenuActivity.class);
@@ -159,7 +152,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this,StartActivity.class));
+        startActivity(new Intent(this, StartActivity.class));
         finish();
     }
 }

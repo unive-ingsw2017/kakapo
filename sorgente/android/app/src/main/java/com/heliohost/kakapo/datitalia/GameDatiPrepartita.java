@@ -9,7 +9,7 @@ class GameDatiPrepartita {
     private double usciteProvincia;
     private String titolo;
 
-    public GameDatiPrepartita( String titolo, double entrateProvincia, double usciteProvincia) {
+    public GameDatiPrepartita(String titolo, double entrateProvincia, double usciteProvincia) {
         this.entrateProvincia = entrateProvincia;
         this.usciteProvincia = usciteProvincia;
         this.titolo = titolo;

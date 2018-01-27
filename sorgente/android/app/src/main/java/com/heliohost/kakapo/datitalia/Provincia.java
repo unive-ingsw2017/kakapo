@@ -1,9 +1,6 @@
 package com.heliohost.kakapo.datitalia;
 
-import com.google.firebase.database.DataSnapshot;
-
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

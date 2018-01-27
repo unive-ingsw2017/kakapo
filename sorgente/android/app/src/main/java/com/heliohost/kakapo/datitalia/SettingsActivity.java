@@ -1,43 +1,29 @@
 package com.heliohost.kakapo.datitalia;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.icu.text.LocaleDisplayNames;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
-import java.util.HashSet;
-import java.util.Map;
-
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView changeUsername;
     private TextView changeProvincia;
@@ -45,47 +31,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private TextView segnalazioni;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
-
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DataUtility.getInstance().googleConnection(this,this);
-        changeUsername = findViewById(R.id.change_username);
-        changeProvincia = findViewById(R.id.change_provincia);
-        infoSviluppatori = findViewById(R.id.info_sviluppatori);
-        segnalazioni = findViewById(R.id.segnalazioni);
-
-        changeProvincia.setOnClickListener(this);
-        changeUsername.setOnClickListener(this);
-        infoSviluppatori.setOnClickListener(this);
-        segnalazioni.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.change_provincia:
-                changeProvinciaDialog();
-                break;
-            case R.id.change_username:
-                changeUsernameDialog();
-                break;
-            case R.id.info_sviluppatori:
-                infoSviluppatoriDialog();
-                break;
-
-            case R.id.segnalazioni:
-                contactHelpAndSupport(this, new String[]{"kakapo.software.engineering@gmail.com"}, "Segnalazione e/o consiglio");
-                break;
-        }
-    }
-
 
     private static void contactHelpAndSupport(Context context, String[] to, String subject) {
         String body = "";
@@ -104,10 +49,51 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         context.startActivity(Intent.createChooser(intent, "Send email:"));
     }
 
-    private void changeProvinciaDialog(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DataUtility.getInstance().googleConnection(this, this);
+        changeUsername = findViewById(R.id.change_username);
+        changeProvincia = findViewById(R.id.change_provincia);
+        infoSviluppatori = findViewById(R.id.info_sviluppatori);
+        segnalazioni = findViewById(R.id.segnalazioni);
+
+        changeProvincia.setOnClickListener(this);
+        changeUsername.setOnClickListener(this);
+        infoSviluppatori.setOnClickListener(this);
+        segnalazioni.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.change_provincia:
+                changeProvinciaDialog();
+                break;
+            case R.id.change_username:
+                changeUsernameDialog();
+                break;
+            case R.id.info_sviluppatori:
+                infoSviluppatoriDialog();
+                break;
+
+            case R.id.segnalazioni:
+                contactHelpAndSupport(this, new String[]{"kakapo.software.engineering@gmail.com"}, "Segnalazione e/o consiglio");
+                break;
+        }
+    }
+
+    private void changeProvinciaDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final LayoutInflater inflater = LayoutInflater.from(this);
-        final View inflator_provincia = inflater.inflate(R.layout.scelta_provincia,null);
+        final View inflator_provincia = inflater.inflate(R.layout.scelta_provincia, null);
         AlertDialog alert;
         builder.setView(inflator_provincia);
         final Spinner spinner = inflator_provincia.findViewById(R.id.spinner);
@@ -130,10 +116,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         alert = builder.create();
         alert.show();
     }
-    private void changeUsernameDialog(){
+
+    private void changeUsernameDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final LayoutInflater inflater = LayoutInflater.from(this);
-        final View inflator_username = inflater.inflate(R.layout.scelta_username,null);
+        final View inflator_username = inflater.inflate(R.layout.scelta_username, null);
         AlertDialog alert;
         builder.setView(inflator_username);
         final TextInputLayout editText = inflator_username.findViewById(R.id.text_input_layout);
@@ -141,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String username = editText.getEditText().getText().toString().trim();
-                if(username.isEmpty()) {
+                if (username.isEmpty()) {
                     editText.setError("Devi inserire un username");
                 } else {
                     Log.i("NOME", username);
@@ -161,10 +148,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         alert.show();
 
     }
-    private void infoSviluppatoriDialog(){
+
+    private void infoSviluppatoriDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final LayoutInflater inflater = LayoutInflater.from(this);
-        final View inflator_sviluppatori = inflater.inflate(R.layout.info_sviluppatori,null);
+        final View inflator_sviluppatori = inflater.inflate(R.layout.info_sviluppatori, null);
         AlertDialog alert;
         builder.setView(inflator_sviluppatori);
         builder.setPositiveButton("Indietro", new DialogInterface.OnClickListener() {
@@ -177,9 +165,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    private void signOut(){
+    private void signOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
@@ -188,6 +176,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -196,17 +185,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             DataUtility.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             return true;
         }
 
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void showResponde() {
-        Snackbar.make(findViewById(R.id.settings_layout),R.string.settings_response,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.settings_layout), R.string.settings_response, Snackbar.LENGTH_SHORT).show();
     }
 }

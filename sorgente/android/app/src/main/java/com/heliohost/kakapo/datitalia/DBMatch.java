@@ -16,6 +16,7 @@ import java.util.List;
 @Keep
 public class DBMatch implements Serializable {
 
+    public List<MatchQuestion> questions = new ArrayList<>();
     private String gameRef;
     private String player1ID;
     private String player2ID;
@@ -28,16 +29,24 @@ public class DBMatch implements Serializable {
     private Integer sbagliatePlayer1;
     private Integer sbagliatePlayer2;
 
-    public List<MatchQuestion> questions = new ArrayList<>();
-
     public DBMatch() {
         //Default construtctor required by DB API
+    }
+
+    public DBMatch(String player1ID, String player1Province) {
+        this.player1ID = player1ID;
+        this.player1Province = player1Province;
+        this.player2ID = MatchMaker.NONE;
+        this.player2Province = MatchMaker.NONE;
     }
 
     public String getPlayer1Status() {
         return player1Status;
     }
 
+    public void setPlayer1Status(String player1Status) {
+        this.player1Status = player1Status;
+    }
 
     public Integer getCorrettePlayer1() {
         return correttePlayer1;
@@ -69,10 +78,6 @@ public class DBMatch implements Serializable {
 
     public void setSbagliatePlayer2(Integer sbagliatePlayer2) {
         this.sbagliatePlayer2 = sbagliatePlayer2;
-    }
-
-    public void setPlayer1Status(String player1Status) {
-        this.player1Status = player1Status;
     }
 
     public String getPlayer2Status() {
@@ -131,15 +136,8 @@ public class DBMatch implements Serializable {
         this.questions = questions;
     }
 
-    public DBMatch(String player1ID, String player1Province) {
-        this.player1ID = player1ID;
-        this.player1Province = player1Province;
-        this.player2ID = MatchMaker.NONE;
-        this.player2Province = MatchMaker.NONE;
-    }
-
     @Override
     public String toString() {
-        return "["+player1ID+" vs "+player2ID+"] province ["+player1Province+ " vs " + player2Province+"]";
+        return "[" + player1ID + " vs " + player2ID + "] province [" + player1Province + " vs " + player2Province + "]";
     }
 }
