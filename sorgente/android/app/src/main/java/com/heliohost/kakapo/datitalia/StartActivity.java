@@ -36,7 +36,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private DatabaseReference userReference;
     private ValueEventListener userLoaded;
     private FirebaseAuth firebaseAuth;
-    private TextView testo;
     private String uid;
 
     @Override
@@ -53,8 +52,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 User user = dataSnapshot.getValue(User.class);
                 if (user == null) {
                     dialog_choose_provincia();
-                } else{
-                    testo.setText("Ciao " + user.getUsername());
                 }
             }
 
@@ -63,17 +60,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
         });
         DataUtility.getInstance().googleConnection(this,this);
-
-
-        Geocoder g = new Geocoder(getApplicationContext());
-
-        try {
-            Log.d(TAG, "onCreate: "+g.getFromLocationName("Treviso, Veneto, Italia", 1).get(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        testo = findViewById(R.id.testo);
-
     }
 
     private void dialog_choose_provincia() {
@@ -95,7 +81,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         false,
                         0);
                 FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(user1);
-                testo.setText("Ciao " + user1.getUsername());
             }
         });
         alert = builder.create();

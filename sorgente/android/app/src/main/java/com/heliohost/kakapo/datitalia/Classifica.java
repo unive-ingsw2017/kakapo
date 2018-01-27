@@ -64,6 +64,7 @@ public class Classifica extends AppCompatActivity {
             int i = 0;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                datiList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     String username = data.child("username").getValue(String.class);
                     String provincia = data.child("provincia").getValue(String.class);
@@ -77,8 +78,8 @@ public class Classifica extends AppCompatActivity {
                         punteggioPlayer = findViewById(R.id.punteggio_player);
                         posizionePlayer = findViewById(R.id.posizione_player);
                         Log.d(TAG,"ENTRO");
-                        posizionePlayer.setText(posizionePlayer.getText()+"  "+i);
-                        punteggioPlayer.setText(punteggioPlayer.getText()+"  "+points+" pt");
+                        posizionePlayer.setText(getString(R.string.posizione_player)+"  "+i);
+                        punteggioPlayer.setText(getString(R.string.punteggio_player)+"  "+points+" pt");
                     }
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.INVISIBLE);
