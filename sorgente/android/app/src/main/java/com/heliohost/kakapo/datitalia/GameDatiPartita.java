@@ -32,7 +32,6 @@ public class GameDatiPartita extends Fragment {
     private RecyclerView rv;
     private List<GameDatiPrepartita> datiList = new ArrayList<>();
     private GameDatiAdapter mAdapter;
-    private String[] staticComparti = new String[]{"comparto1", "comparto2", "compart32", "comparto4", "comparto5", "comparto6", "comparto7", "comparto8", "comparto9", "comparto10", "comparto11"};
     private TextView timer;
     private TextView nomeProv;
     private ProgressBar progressBar;
@@ -81,8 +80,8 @@ public class GameDatiPartita extends Fragment {
         dbMatch = (DBMatch) bundle.getSerializable("dbMatch");
         player = (FirebaseAuth.getInstance().getUid().equals(dbMatch.getPlayer1ID())) ? dbMatch.getPlayer2Province() : dbMatch.getPlayer1Province();
         nomeProv.setText("Stai giocando contro:" + player);
-        new CountDownTimer(5000, 1000) {
-            int i = 90;
+        new CountDownTimer(20000, 1000) {
+            int i = 100;
 
             @Override
             public void onTick(long l) {
