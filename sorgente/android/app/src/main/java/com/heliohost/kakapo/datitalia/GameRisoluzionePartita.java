@@ -116,8 +116,8 @@ public class GameRisoluzionePartita extends AppCompatActivity {
                     String prov1 = dbMatchActual.getPlayer1Province();
                     String prov2 = dbMatchActual.getPlayer2Province();
                     String correct = (matchQuestion.getCorrectAnswer() == 1) ? prov1 : prov2;
-                    String risp1 = (matchQuestion.getPlayer1response() == 1) ? prov1 : prov2;
-                    String risp2 = (matchQuestion.getPlayer2response() == 1) ? prov1 : prov2;
+                    String risp1 = (matchQuestion.getPlayer1response() == 1) ? prov1 : (matchQuestion.getPlayer1response() == 2) ? prov2 : "None";
+                    String risp2 = (matchQuestion.getPlayer2response() == 1) ? prov1 : (matchQuestion.getPlayer2response() == 2) ? prov2 : "None";
                     RisoluzionePartita risoluzionePartita = new RisoluzionePartita(risp1, risp2, correct, domanda);
                     datiList.add(risoluzionePartita);
                 }

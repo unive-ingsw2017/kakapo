@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private MyCountDownTimer getCountDownTimer_singol = new MyCountDownTimer(1500, 1000);
     private CountDownTimer countDownTimer;
-
+    private QuestionCountDownTimer qcdt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +94,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         countDownTimer = new CountDownTimer(seconds, 1000) {
             @Override
             public void onTick(long l) {
-                mProgressBar.setProgress(time);
+                //mProgressBar.setProgress(time);
                 time = time - 5;
             }
 
@@ -104,6 +104,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 risoluzione_partita();
             }
         }.start();
+        qcdt = new QuestionCountDownTimer(mProgressBar);
+        qcdt.start();
     }
 
     @Override
@@ -113,13 +115,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 abbandona_dialog();
                 break;
             case R.id.risposta_1:
-                if (actualQuestion < totalQuestions)
+                if (actualQuestion < totalQuestions) {
+                    qcdt.cancel();
                     nextQuestion(1);
-
+                }
                 break;
             case R.id.risposta_2:
-                if (actualQuestion < totalQuestions)
+                if (actualQuestion < totalQuestions) {
+                    qcdt.cancel();
                     nextQuestion(2);
+                }
                 break;
         }
     }
@@ -287,6 +292,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         countDownTimer.cancel();
+                        qcdt.cancel();
                         GameActivity.this.finish();
                         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
                         risoluzione_partita();
@@ -310,6 +316,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public class QuestionCountDownTimer extends CountDownTimer {
+        private final static long questiontime = 7000;
+        private final static int qth = 70;
+        private ProgressBar pb;
+        public  QuestionCountDownTimer(ProgressBar pb){
+            super(questiontime, 50);
+            this.pb = pb;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int percentage = (int) (millisUntilFinished/qth);
+            pb.setProgress(percentage);
+        }
+
+        @Override
+        public void onFinish() {
+            if(actualQuestion < totalQuestions)
+                nextQuestion(0);
+            qcdt.cancel();
+        }
+    }
+
     public class MyCountDownTimer extends CountDownTimer {
 
 
@@ -329,6 +358,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             risposta2.setBackground(getDrawable(R.drawable.game_button));
             risposta1.setClickable(true);
             risposta2.setClickable(true);
+            qcdt.start();
         }
     }
 }
