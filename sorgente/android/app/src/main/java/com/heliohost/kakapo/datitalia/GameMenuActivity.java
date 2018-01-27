@@ -14,37 +14,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameMenuActivity extends AppCompatActivity
-                                implements  ModalitaMenuFragment.MenuListener,
-                                            MatchMaker.MatchInteraction,
-                                            MatchMaker.MatchMakerInteraction{
+        implements ModalitaMenuFragment.MenuListener,
+        MatchMaker.MatchInteraction,
+        MatchMaker.MatchMakerInteraction {
 
     static final String TAG = "GameMenuActivity";
 
 
     private final static String NONE = "none";
-    private Match2 match2;
     FirebaseDatabase database;
     DatabaseReference mMatchmaker;
     DatabaseReference mGamesReference;
-
+    private Match2 match2;
     private MatchMaker randomMatchMaker = null;
     private MatchMaker nationalMatchMaker = null;
     private MatchMaker regionalMatchMaker = null;
@@ -127,17 +119,17 @@ public class GameMenuActivity extends AppCompatActivity
         super.onResume();
 
         Log.d(TAG, "onResume: adding interactions");
-        if(randomMatchMaker != null) {
+        if (randomMatchMaker != null) {
             randomMatchMaker.addMatchInteraction(this);
             randomMatchMaker.addMatchMakerInteraction(this);
         }
 
-        if(nationalMatchMaker != null) {
+        if (nationalMatchMaker != null) {
             nationalMatchMaker.addMatchInteraction(this);
             nationalMatchMaker.addMatchMakerInteraction(this);
         }
 
-        if(regionalMatchMaker != null) {
+        if (regionalMatchMaker != null) {
             regionalMatchMaker.addMatchInteraction(this);
             regionalMatchMaker.addMatchMakerInteraction(this);
         }
@@ -147,20 +139,20 @@ public class GameMenuActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: removing interactions");
-        if(randomMatchMaker != null) {
+        if (randomMatchMaker != null) {
             randomMatchMaker.cancelSearch();
             randomMatchMaker.addMatchInteraction(this);
             randomMatchMaker.addMatchMakerInteraction(this);
         }
 
-        if(nationalMatchMaker != null) {
+        if (nationalMatchMaker != null) {
             Log.d(TAG, "onStop: cancelling search for nazionale");
             nationalMatchMaker.cancelSearch();
             nationalMatchMaker.addMatchInteraction(this);
             nationalMatchMaker.addMatchMakerInteraction(this);
         }
 
-        if(regionalMatchMaker != null) {
+        if (regionalMatchMaker != null) {
             regionalMatchMaker.cancelSearch();
             regionalMatchMaker.addMatchInteraction(this);
             regionalMatchMaker.addMatchMakerInteraction(this);
@@ -192,7 +184,7 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onNazionaleButtonPressed() {
         Log.d(TAG, "Ho premuto");
-        botTimer = new BotTimer(10000,1000);
+        botTimer = new BotTimer(10000, 1000);
         botTimer.start();
         modalita = MatchMaker.NATIONAL;
         Log.d(TAG, "onNazionaleButtonPressed: Ricerca Gioco Nazionale");
@@ -202,14 +194,14 @@ public class GameMenuActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
         fragmentTransaction.addToBackStack("b");
         fragmentTransaction.commit();
-        if(nationalMatchMaker != null)
+        if (nationalMatchMaker != null)
             nationalMatchMaker.findMatch();
     }
 
     @Override
     public void onRegionaleButtonPressed() {
         modalita = MatchMaker.REGIONAL;
-        botTimer = new BotTimer(10000,1000);
+        botTimer = new BotTimer(10000, 1000);
         botTimer.start();
         Log.d(TAG, "onRegionaleButtonPressed: Ricerca Gioco Regionale");
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -232,7 +224,7 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onRandomButtonPressed() {
         Log.d(TAG, "onRandomButtonPressed: Random GAME button pressed");
-        botTimer = new BotTimer(10000,1000);
+        botTimer = new BotTimer(10000, 1000);
         botTimer.start();
         FragmentManager fragmentManager = getSupportFragmentManager();
         GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
@@ -251,14 +243,14 @@ public class GameMenuActivity extends AppCompatActivity
 
     @Override
     public void onMatchUpdate(DBMatch match) {
-        Log.d(TAG, "onMatchUpdate: DBMatch Updated "+match.toString());
+        Log.d(TAG, "onMatchUpdate: DBMatch Updated " + match.toString());
     }
 
     @Override
     public void onSecondPlayerFound(final DBMatch dbMatch) {
         botTimer.cancel();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("dbMatch",dbMatch);
+        bundle.putSerializable("dbMatch", dbMatch);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         GameDatiPartita gameDatiPartita = new GameDatiPartita();
@@ -275,7 +267,7 @@ public class GameMenuActivity extends AppCompatActivity
 
     @Override
     public void onBeignSecond(DBMatch dbMatch) {
-        Log.d(TAG, "onBeignSecond: I am second!"+dbMatch.toString());
+        Log.d(TAG, "onBeignSecond: I am second!" + dbMatch.toString());
     }
 
     @Override
@@ -288,34 +280,17 @@ public class GameMenuActivity extends AppCompatActivity
         super.onBackPressed();
         if (botTimer != null)
             botTimer.cancel();
-        if(randomMatchMaker != null)
+        if (randomMatchMaker != null)
             randomMatchMaker.cancelSearch();
-        if(nationalMatchMaker != null)
+        if (nationalMatchMaker != null)
             nationalMatchMaker.cancelSearch();
-        if(regionalMatchMaker != null)
+        if (regionalMatchMaker != null)
             regionalMatchMaker.cancelSearch();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    public class BotTimer extends CountDownTimer {
-
-        public BotTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long l) {
-
-        }
-
-        @Override
-        public void onFinish() {
-            botRequestDialog();
-        }
     }
 
     private void botRequestDialog() {
@@ -325,11 +300,11 @@ public class GameMenuActivity extends AppCompatActivity
                 .setCancelable(false)
                 .setPositiveButton("Gioca!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if(randomMatchMaker != null)
+                        if (randomMatchMaker != null)
                             randomMatchMaker.cancelSearch();
-                        if(nationalMatchMaker != null)
+                        if (nationalMatchMaker != null)
                             nationalMatchMaker.cancelSearch();
-                        if(regionalMatchMaker != null)
+                        if (regionalMatchMaker != null)
                             regionalMatchMaker.cancelSearch();
                         FirebaseDatabase.getInstance().getReference().child("modalita").setValue("none");
                         FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -347,7 +322,7 @@ public class GameMenuActivity extends AppCompatActivity
                                 int numProv = 0;
                                 for (DataSnapshot data : dataSnapshot.child("provinces").getChildren()) {
                                     j++;
-                                    if(provincia.equals(data.getKey())){
+                                    if (provincia.equals(data.getKey())) {
                                         numProv = j;
                                     }
                                 }
@@ -356,8 +331,8 @@ public class GameMenuActivity extends AppCompatActivity
                                 for (DataSnapshot data : dataSnapshot.child("provinces").getChildren()) {
                                     i++;
                                     if (i == randomNumber) {
-                                        if(numProv == randomNumber){
-                                            randomNumber = (randomNumber+1)%20;
+                                        if (numProv == randomNumber) {
+                                            randomNumber = (randomNumber + 1) % 20;
                                         }
                                         String provincia1 = data.getKey();
                                         dbMatch.setPlayer2Province(provincia1);
@@ -369,9 +344,9 @@ public class GameMenuActivity extends AppCompatActivity
                                 }
                                 Provincia provincia1 = dataSnapshot.child("provinces").child(dbMatch.getPlayer1Province()).getValue(Provincia.class);
                                 Provincia provincia2 = dataSnapshot.child("provinces").child(dbMatch.getPlayer2Province()).getValue(Provincia.class);
-                                Match2 match2 = new Match2(provincia1,provincia2);
+                                Match2 match2 = new Match2(provincia1, provincia2);
                                 dbMatch.setQuestions(match2.getQuestions());
-                                for (MatchQuestion matchQuestion : dbMatch.getQuestions()){
+                                for (MatchQuestion matchQuestion : dbMatch.getQuestions()) {
                                     int randomNum1 = ThreadLocalRandom.current().nextInt(1, 3);
                                     matchQuestion.setPlayer2response(randomNum1);
                                     Log.d("BOT", "onDataChange: BOT" + randomNum1);
@@ -381,7 +356,7 @@ public class GameMenuActivity extends AppCompatActivity
                                 FirebaseDatabase.getInstance().getReference().child("games").child(db).setValue(dbMatch);
 
                                 Bundle bundle = new Bundle();
-                                bundle.putSerializable("dbMatch",dbMatch);
+                                bundle.putSerializable("dbMatch", dbMatch);
                                 FragmentManager fragmentManager = getSupportFragmentManager();
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 GameDatiPartita gameDatiPartita = new GameDatiPartita();
@@ -405,5 +380,22 @@ public class GameMenuActivity extends AppCompatActivity
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public class BotTimer extends CountDownTimer {
+
+        public BotTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long l) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            botRequestDialog();
+        }
     }
 }

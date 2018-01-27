@@ -16,17 +16,8 @@ class ClassificaAdapter extends RecyclerView.Adapter<ClassificaAdapter.MyViewHol
 
     private List<User> userList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nomePlayer, punteggio;
-
-        public MyViewHolder(View view) {
-            super(view);
-            punteggio = view.findViewById(R.id.punteggio);
-            nomePlayer = view.findViewById(R.id.nome_player);
-        }
-    }
-    public ClassificaAdapter(List<User> userList){
-        this.userList=userList;
+    public ClassificaAdapter(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override
@@ -40,12 +31,22 @@ class ClassificaAdapter extends RecyclerView.Adapter<ClassificaAdapter.MyViewHol
     @Override
     public void onBindViewHolder(ClassificaAdapter.MyViewHolder holder, int position) {
         User userDati = userList.get(position);
-        holder.nomePlayer.setText(userDati.getUsername() + " ("+userDati.getProvincia()+")");
+        holder.nomePlayer.setText(userDati.getUsername() + " (" + userDati.getProvincia() + ")");
         holder.punteggio.setText("" + userDati.getPoints() + " pt");
     }
 
     @Override
     public int getItemCount() {
         return userList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView nomePlayer, punteggio;
+
+        public MyViewHolder(View view) {
+            super(view);
+            punteggio = view.findViewById(R.id.punteggio);
+            nomePlayer = view.findViewById(R.id.nome_player);
+        }
     }
 }

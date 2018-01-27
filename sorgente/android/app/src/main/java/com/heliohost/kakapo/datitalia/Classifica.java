@@ -1,8 +1,8 @@
 package com.heliohost.kakapo.datitalia;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Classifica extends AppCompatActivity {
@@ -35,6 +34,7 @@ public class Classifica extends AppCompatActivity {
     private List<User> datiList = new ArrayList<>();
     private ClassificaAdapter mAdapter;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +44,12 @@ public class Classifica extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DataUtility.getInstance().googleConnection(this,this);
+        DataUtility.getInstance().googleConnection(this, this);
 
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
@@ -62,23 +62,25 @@ public class Classifica extends AppCompatActivity {
         rv.setAdapter(mAdapter);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int i = 0;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()){
+                datiList.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     String username = data.child("username").getValue(String.class);
                     String provincia = data.child("provincia").getValue(String.class);
                     Long point = data.child("points").getValue(Long.class);
                     point *= -1;
-                    String points = new String(""+point);
-                    User user = new User(username,Integer.parseInt(points),provincia);
+                    String points = new String("" + point);
+                    User user = new User(username, Integer.parseInt(points), provincia);
                     datiList.add(user);
                     i++;
-                    if(data.getKey().equals(FirebaseAuth.getInstance().getUid())){
+                    if (data.getKey().equals(FirebaseAuth.getInstance().getUid())) {
                         punteggioPlayer = findViewById(R.id.punteggio_player);
                         posizionePlayer = findViewById(R.id.posizione_player);
-                        Log.d(TAG,"ENTRO");
-                        posizionePlayer.setText(posizionePlayer.getText()+"  "+i);
-                        punteggioPlayer.setText(punteggioPlayer.getText()+"  "+points+" pt");
+                        Log.d(TAG, "ENTRO");
+                        posizionePlayer.setText(getString(R.string.posizione_player) + "  " + i);
+                        punteggioPlayer.setText(getString(R.string.punteggio_player) + "  " + points + " pt");
                     }
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.INVISIBLE);
@@ -99,6 +101,7 @@ public class Classifica extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -113,7 +116,7 @@ public class Classifica extends AppCompatActivity {
             return true;
         }
 
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);

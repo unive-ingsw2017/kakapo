@@ -3,8 +3,6 @@ package com.heliohost.kakapo.datitalia;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -204,14 +202,13 @@ public class MapManager implements OnMapReadyCallback, GoogleMap.OnMapLoadedCall
         listener = null;
     }
 
-    public interface MapListener {
-        void onInfoWindowClick(Marker marker, Object key);
-    }
-
-    public SupportMapFragment getSupportMapFragment(){
+    public SupportMapFragment getSupportMapFragment() {
         return this.fragment;
     }
 
+    public interface MapListener {
+        void onInfoWindowClick(Marker marker, Object key);
+    }
 
 
 }

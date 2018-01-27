@@ -2,12 +2,10 @@ package com.heliohost.kakapo.datitalia;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static android.graphics.Color.GREEN;
-import static android.graphics.Color.RED;
-
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = AppCompatActivity.class.getSimpleName();
 
@@ -57,7 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private DBMatch dbRef;
     private DBMatch dbMatchActual;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private MyCountDownTimer getCountDownTimer_singol = new MyCountDownTimer(1500,1000);
+    private MyCountDownTimer getCountDownTimer_singol = new MyCountDownTimer(1500, 1000);
     private CountDownTimer countDownTimer;
 
     @Override
@@ -96,10 +88,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         domanda = dbRef.getQuestions().get(actualQuestion).getQuestionType() + " " + dbRef.getPlayer1Province() + " o " + dbRef.getPlayer2Province() + " riguardo a " + dbRef.getQuestions().get(actualQuestion).getComparto() + "?";
         textViewDomanda.setText(domanda);
         int seconds = dbRef.getQuestions().size() * 7000;
-        mTimer.setText(""+(seconds/1000));
+        mTimer.setText("" + (seconds / 1000));
         // tempo totale
 
-        countDownTimer = new CountDownTimer(seconds,1000) {
+        countDownTimer = new CountDownTimer(seconds, 1000) {
             @Override
             public void onTick(long l) {
                 mProgressBar.setProgress(time);
@@ -116,12 +108,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.abbandona:
                 abbandona_dialog();
                 break;
             case R.id.risposta_1:
-                if(actualQuestion < totalQuestions)
+                if (actualQuestion < totalQuestions)
                     nextQuestion(1);
 
                 break;
@@ -132,7 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void abbandona_dialog(){
+    private void abbandona_dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Sicuro di voler abbandonare la partita?")
                 .setCancelable(false)
@@ -141,7 +133,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         countDownTimer.cancel();
                         changeStatusOnExit();
                         GameActivity.this.finish();
-                        startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -154,7 +146,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         alert.show();
     }
 
-    private void risoluzione_partita(){
+    private void risoluzione_partita() {
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("onWaiting");
         goToResolution();
     }
@@ -166,12 +158,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 countDownTimer.cancel();
                 Log.d(TAG, "onDataChange: THREAD ABORTITO");
                 String status = dataSnapshot.child(adversaeyStatus).getValue(String.class);
-                if(status.equals("onWaiting") || status.equals("offline") || status.equals("online")){
+                if (status.equals("onWaiting") || status.equals("offline") || status.equals("online")) {
                     dbMatchActual = dataSnapshot.getValue(DBMatch.class);
-                    for(MatchQuestion matchQuestion : dbMatchActual.getQuestions()){
+                    for (MatchQuestion matchQuestion : dbMatchActual.getQuestions()) {
                         Integer rispostaData = (uid.equals(dbRef.getPlayer1ID())) ? matchQuestion.getPlayer1response() : matchQuestion.getPlayer2response();
                         Integer rispostaCorretta = matchQuestion.getCorrectAnswer();
-                        if(rispostaCorretta == rispostaData)
+                        if (rispostaCorretta == rispostaData)
                             corrette++;
                         else
                             sbagliate++;
@@ -198,11 +190,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("RISP", "onDataChange: risposte 1 " + corrette );
                     corrette = 0;
                     sbagliate = 0;
-                    Intent intent1 = new Intent(getApplicationContext(),GameRisoluzionePartita.class);
-                    intent1.putExtra("dbMatch",dbMatchActual);
+                    Intent intent1 = new Intent(getApplicationContext(), GameRisoluzionePartita.class);
+                    intent1.putExtra("dbMatch", dbMatchActual);
                     startActivity(intent1);
-                } else{
-                    Toast.makeText(getApplicationContext(),"Sto aspettando il tuo avversario",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sto aspettando il tuo avversario", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -251,16 +243,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void nextQuestion(int answer){
-        if(dbRef.getPlayer1ID().equals(uid))
-            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child(""+actualQuestion).child("player1response").setValue(answer);
+    private void nextQuestion(int answer) {
+        if (dbRef.getPlayer1ID().equals(uid))
+            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child("" + actualQuestion).child("player1response").setValue(answer);
         else
-            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child(""+actualQuestion).child("player2response").setValue(answer);
+            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child("" + actualQuestion).child("player2response").setValue(answer);
 
 
         setColours(answer);
         actualQuestion++;
-        if(actualQuestion == totalQuestions){
+        if (actualQuestion == totalQuestions) {
             risposta1.setClickable(false);
             risposta2.setClickable(false);
             risoluzione_partita();
@@ -270,7 +262,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeStatusOnExit(){
+    private void changeStatusOnExit() {
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
         databaseReference.child("users").child(playerID).child("points").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -298,7 +290,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         GameActivity.this.finish();
                         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
                         risoluzione_partita();
-                        startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
                         GameActivity.super.onBackPressed();
                     }
                 })
@@ -318,7 +310,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public class MyCountDownTimer extends CountDownTimer{
+    public class MyCountDownTimer extends CountDownTimer {
 
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {

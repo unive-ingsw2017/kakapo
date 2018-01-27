@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by simonescaboro on 04/12/17.
  */
-public class User implements Serializable{
+public class User implements Serializable {
     private String ID;
     private String email;
     private String username;
@@ -15,7 +15,8 @@ public class User implements Serializable{
     private int points;
     private String provincia;
 
-    public User(){}
+    public User() {
+    }
 
     /*
     public User(String ID, String email, String name,String provincia) {
@@ -98,14 +99,14 @@ public class User implements Serializable{
     }
 
 
-    public Map<String,Object> toMap(){
-        HashMap<String,Object> result = new HashMap<>();
-        result.put("ID",ID);
-        result.put("email",email);
-        result.put("username",username);
-        result.put("provincia",provincia);
-        result.put("points",points);
-        result.put("isBot",isBot);
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("ID", ID);
+        result.put("email", email);
+        result.put("username", username);
+        result.put("provincia", provincia);
+        result.put("points", points);
+        result.put("isBot", isBot);
         return result;
     }
 }
