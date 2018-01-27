@@ -81,14 +81,14 @@ public class GameDatiPartita extends Fragment {
         dbMatch = (DBMatch) bundle.getSerializable("dbMatch");
         player = (FirebaseAuth.getInstance().getUid().equals(dbMatch.getPlayer1ID())) ? dbMatch.getPlayer2Province() : dbMatch.getPlayer1Province();
         nomeProv.setText("Stai giocando contro:" + player);
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(10000, 50) {
             int i = 90;
 
             @Override
             public void onTick(long l) {
                 timer.setText("" + l / 1000);
 
-                progressBar.setProgress(i);
+                progressBar.setProgress((int) l/100);
                 i = i - 5;
             }
 
