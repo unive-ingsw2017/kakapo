@@ -67,7 +67,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         playerID = (uid.equals(dbRef.getPlayer1ID())) ? dbRef.getPlayer1ID() : dbRef.getPlayer2ID();
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("onGame");
 
-        mTimer = findViewById(R.id.textView3);
         mProgressBar = findViewById(R.id.progress_bar);
         abbandonaButton = findViewById(R.id.abbandona);
         risposta1 = findViewById(R.id.risposta_1);
@@ -88,7 +87,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         domanda = dbRef.getQuestions().get(actualQuestion).getQuestionType() + " " + dbRef.getPlayer1Province() + " o " + dbRef.getPlayer2Province() + " riguardo a " + dbRef.getQuestions().get(actualQuestion).getComparto() + "?";
         textViewDomanda.setText(domanda);
         int seconds = dbRef.getQuestions().size() * 7000;
-        mTimer.setText("" + (seconds / 1000));
         // tempo totale
 
         countDownTimer = new CountDownTimer(seconds, 1000) {
