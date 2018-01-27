@@ -16,19 +16,6 @@ public class ConfrontoAdapter extends RecyclerView.Adapter<ConfrontoAdapter.MyVi
 
     private List<ConfrontoDati> datiList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView entrataProvincia1, entrataProvincia2, uscitaProvincia1, uscitaProvincia2, titolo;
-
-        public MyViewHolder(View view) {
-            super(view);
-            entrataProvincia1 = view.findViewById(R.id.entrata_prov1);
-            entrataProvincia2 = view.findViewById(R.id.entrata_prov2);
-            uscitaProvincia1 = view.findViewById(R.id.uscita_prov1);
-            uscitaProvincia2 = view.findViewById(R.id.uscita_prov2);
-            titolo = view.findViewById(R.id.titolo);
-        }
-    }
-
     public ConfrontoAdapter(List<ConfrontoDati> datiList) {
         this.datiList = datiList;
     }
@@ -54,5 +41,18 @@ public class ConfrontoAdapter extends RecyclerView.Adapter<ConfrontoAdapter.MyVi
     @Override
     public int getItemCount() {
         return datiList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView entrataProvincia1, entrataProvincia2, uscitaProvincia1, uscitaProvincia2, titolo;
+
+        public MyViewHolder(View view) {
+            super(view);
+            entrataProvincia1 = view.findViewById(R.id.entrata_prov1);
+            entrataProvincia2 = view.findViewById(R.id.entrata_prov2);
+            uscitaProvincia1 = view.findViewById(R.id.uscita_prov1);
+            uscitaProvincia2 = view.findViewById(R.id.uscita_prov2);
+            titolo = view.findViewById(R.id.titolo);
+        }
     }
 }

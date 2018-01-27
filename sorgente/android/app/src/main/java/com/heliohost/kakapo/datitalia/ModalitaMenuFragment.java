@@ -4,28 +4,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ModalitaMenuFragment extends Fragment implements View.OnClickListener{
+public class ModalitaMenuFragment extends Fragment implements View.OnClickListener {
 
-
-
-    public interface MenuListener{
-        void onNazionaleButtonPressed();
-        void onRegionaleButtonPressed();
-        void onRandomButtonPressed();
-        void onClassificaButtonPressed();
-    }
 
     private MenuListener mMenuListener;
 
+    public ModalitaMenuFragment() {
+        super();
+    }
+
     @Override
     public void onClick(View v) {
-        if(mMenuListener != null) {
+        if (mMenuListener != null) {
             switch (v.getId()) {
                 case R.id.btn_nazionale:
                     mMenuListener.onNazionaleButtonPressed();
@@ -45,11 +39,6 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public ModalitaMenuFragment() {
-        super();
-    }
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +57,14 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
         return v;
     }
 
-    public void setMenuListener(MenuListener ml){
+    public void setMenuListener(MenuListener ml) {
         this.mMenuListener = ml;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MenuListener){
+        if (context instanceof MenuListener) {
             mMenuListener = (MenuListener) context;
         }
     }
@@ -84,5 +73,15 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
     public void onDetach() {
         super.onDetach();
         mMenuListener = null;
+    }
+
+    public interface MenuListener {
+        void onNazionaleButtonPressed();
+
+        void onRegionaleButtonPressed();
+
+        void onRandomButtonPressed();
+
+        void onClassificaButtonPressed();
     }
 }

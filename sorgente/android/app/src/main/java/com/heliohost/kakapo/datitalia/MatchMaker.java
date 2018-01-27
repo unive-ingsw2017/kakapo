@@ -199,7 +199,7 @@ public class MatchMaker {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             ArrayList<String> province = new ArrayList<>();
-                            for(DataSnapshot ds : dataSnapshot.getChildren())
+                            for (DataSnapshot ds : dataSnapshot.getChildren())
                                 province.add(ds.getKey());
                             Random r = new Random();
                             dbMatch = new DBMatch(player.getID(), NONE);
@@ -226,7 +226,7 @@ public class MatchMaker {
                                     if (b) {
                                         // Il gioco è stato aggiunto correttamente creato, ora aspettiamo il secondo
                                         // giocatore.
-                                        waiting=true;
+                                        waiting = true;
                                         waitingEvent = new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -304,7 +304,7 @@ public class MatchMaker {
                             dbMatch = dataSnapshot1.getValue(DBMatch.class);
                             dbMatch.setPlayer2ID(player.getID());
                             dbMatch.setGameRef(gameRef);
-                            if(!matchMode.equals(RANDOM))
+                            if (!matchMode.equals(RANDOM))
                                 dbMatch.setPlayer2Province(player.getProvincia());
                             if (dbMatch == null)
                                 Log.d(TAG, "onDataChange: dbmatch is null!");
@@ -381,11 +381,11 @@ public class MatchMaker {
 
     }
 
-    public void cancelSearch(){
-        if(waiting && waitingEvent!=null){
+    public void cancelSearch() {
+        if (waiting && waitingEvent != null) {
             createdGameReference.removeEventListener(waitingEvent);
-            waitingEvent=null;
-            waiting=false;
+            waitingEvent = null;
+            waiting = false;
             matchmaker.runTransaction(new Transaction.Handler() {
                 @Override
                 public Transaction.Result doTransaction(MutableData mutableData) {
@@ -399,7 +399,7 @@ public class MatchMaker {
 
                 @Override
                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                    if(!b)
+                    if (!b)
                         Log.d(TAG, "onComplete: CANNOT STOP SEARCHING, GET HELP!!!!");
                     else {
                         for (MatchMakerInteraction mmi : matchMakerInteractions) {
@@ -428,7 +428,6 @@ public class MatchMaker {
 
         void onSecondPlayerFound(DBMatch dbMatch);
     }
-
 
 
     private class FirstPlayerLogic implements ValueEventListener {

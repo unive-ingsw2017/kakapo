@@ -20,8 +20,12 @@ import java.util.Set;
  * Created by Simone on 22/12/2017.
  */
 
-abstract class Match{
+abstract class Match {
 
+    private static final String SPENDE_MENO = "Spende meno ";
+    private static final String SPENDE_DIPIU = "Spende di più ";
+    private static final String MAGGIORI_ENTRATE = "Ha maggiori entrate ";
+    private static final String MINORI_ENTRATE = "Ha minori entrate ";
     private Map<String, LinkedList<Long>> valori;
     private int actualAnswer;
     private List<String> compartiUsati;
@@ -32,19 +36,13 @@ abstract class Match{
     private Provincia provincia2;
     private String nomeProvincia1;
     private String nomeProvincia2;
-
     private List<String> domande;
     private List<MatchQuestion> questions = new LinkedList<>();
     private Set<String> setComparti;
-
     // comparti in comune
     private String[] arrayComparti;
     // tipologia delle domande
     private List<String> tipologiaDomande;
-    private static final String SPENDE_MENO = "Spende meno ";
-    private static final String SPENDE_DIPIU = "Spende di più ";
-    private static final String MAGGIORI_ENTRATE = "Ha maggiori entrate ";
-    private static final String MINORI_ENTRATE = "Ha minori entrate ";
 
     //Match(){}
 
@@ -97,6 +95,7 @@ abstract class Match{
         FirebaseDatabase.getInstance().getReference("provinces").addValueEventListener(
                 new ValueEventListener() {
                     Set<String> setComparti;
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot p : dataSnapshot.getChildren()) {
@@ -169,7 +168,7 @@ abstract class Match{
                 val1 = provincia1.getEntrate().get(comparto);
                 val2 = provincia2.getEntrate().get(comparto);
             }
-            MatchQuestion matchQuestion1 = new MatchQuestion(comparto,tipologiaDomande.get(0),val1,val2,0,0,checkCorrectAnswer(tipologiaDomande.get(0),val1,val2));
+            MatchQuestion matchQuestion1 = new MatchQuestion(comparto, tipologiaDomande.get(0), val1, val2, 0, 0, checkCorrectAnswer(tipologiaDomande.get(0), val1, val2));
             questions.add(matchQuestion1);
             addCorrectAnswer(comparto, val1, val2);
         }
@@ -194,7 +193,7 @@ abstract class Match{
         return getCorrectAnswer().get(actualAnswer);
     }
 
-    public void rispondi(int risposta){
+    public void rispondi(int risposta) {
         risposte.add(risposta);
         nextQuestion();
     }

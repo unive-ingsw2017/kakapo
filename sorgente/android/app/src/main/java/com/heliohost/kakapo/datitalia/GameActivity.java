@@ -2,12 +2,10 @@ package com.heliohost.kakapo.datitalia;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static android.graphics.Color.GREEN;
-import static android.graphics.Color.RED;
-
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = AppCompatActivity.class.getSimpleName();
 
@@ -44,6 +36,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // contatori
     private int corrette = 0;
     private int sbagliate = 0;
+    private int corretteAv = 0;
+    private int sbagliateAv = 0;
     private int actualQuestion = 0;
     private int totalQuestions;
     private int time = 100;
@@ -57,9 +51,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private DBMatch dbRef;
     private DBMatch dbMatchActual;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private MyCountDownTimer getCountDownTimer_singol = new MyCountDownTimer(1500,1000);
+    private MyCountDownTimer getCountDownTimer_singol = new MyCountDownTimer(1500, 1000);
     private CountDownTimer countDownTimer;
-
+    private QuestionCountDownTimer qcdt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +69,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         playerID = (uid.equals(dbRef.getPlayer1ID())) ? dbRef.getPlayer1ID() : dbRef.getPlayer2ID();
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("onGame");
 
-        mTimer = findViewById(R.id.textView3);
         mProgressBar = findViewById(R.id.progress_bar);
         abbandonaButton = findViewById(R.id.abbandona);
         risposta1 = findViewById(R.id.risposta_1);
@@ -96,13 +89,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         domanda = dbRef.getQuestions().get(actualQuestion).getQuestionType() + " " + dbRef.getPlayer1Province() + " o " + dbRef.getPlayer2Province() + " riguardo a " + dbRef.getQuestions().get(actualQuestion).getComparto() + "?";
         textViewDomanda.setText(domanda);
         int seconds = dbRef.getQuestions().size() * 7000;
-        mTimer.setText(""+(seconds/1000));
         // tempo totale
 
-        countDownTimer = new CountDownTimer(seconds,1000) {
+        countDownTimer = new CountDownTimer(seconds, 1000) {
             @Override
             public void onTick(long l) {
-                mProgressBar.setProgress(time);
+                //mProgressBar.setProgress(time);
                 time = time - 5;
             }
 
@@ -112,27 +104,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 risoluzione_partita();
             }
         }.start();
+        qcdt = new QuestionCountDownTimer(mProgressBar);
+        qcdt.start();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.abbandona:
                 abbandona_dialog();
                 break;
             case R.id.risposta_1:
-                if(actualQuestion < totalQuestions)
+                if (actualQuestion < totalQuestions) {
+                    qcdt.cancel();
                     nextQuestion(1);
-
+                }
                 break;
             case R.id.risposta_2:
-                if (actualQuestion < totalQuestions)
+                if (actualQuestion < totalQuestions) {
+                    qcdt.cancel();
                     nextQuestion(2);
+                }
                 break;
         }
     }
 
-    private void abbandona_dialog(){
+    private void abbandona_dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Sicuro di voler abbandonare la partita?")
                 .setCancelable(false)
@@ -141,7 +138,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         countDownTimer.cancel();
                         changeStatusOnExit();
                         GameActivity.this.finish();
-                        startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -154,7 +151,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         alert.show();
     }
 
-    private void risoluzione_partita(){
+    private void risoluzione_partita() {
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("onWaiting");
         goToResolution();
     }
@@ -166,27 +163,43 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 countDownTimer.cancel();
                 Log.d(TAG, "onDataChange: THREAD ABORTITO");
                 String status = dataSnapshot.child(adversaeyStatus).getValue(String.class);
-                if(status.equals("onWaiting") || status.equals("offline") || status.equals("online")){
+                if (status.equals("onWaiting") || status.equals("offline") || status.equals("online")) {
                     dbMatchActual = dataSnapshot.getValue(DBMatch.class);
-                    for(MatchQuestion matchQuestion : dbMatchActual.getQuestions()){
+                    for (MatchQuestion matchQuestion : dbMatchActual.getQuestions()) {
                         Integer rispostaData = (uid.equals(dbRef.getPlayer1ID())) ? matchQuestion.getPlayer1response() : matchQuestion.getPlayer2response();
                         Integer rispostaCorretta = matchQuestion.getCorrectAnswer();
-                        if(rispostaCorretta == rispostaData)
+                        if (rispostaCorretta == rispostaData)
                             corrette++;
                         else
                             sbagliate++;
+                    }
+                    if(dbRef.getPlayer2ID().equals("botID")){
+                        for(MatchQuestion matchQuestion : dbMatchActual.getQuestions()){
+                            Integer rispostaCorrettaAv = matchQuestion.getCorrectAnswer();
+                            Integer rispostaDataAv = matchQuestion.getPlayer2response();
+                            if(rispostaCorrettaAv == rispostaDataAv)
+                                corretteAv++;
+                            else
+                                sbagliateAv++;
+                        }
+                        FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child("correttePlayer2").setValue(corretteAv);
+                        FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child("sbagliatePlayer2").setValue(sbagliateAv);
                     }
                     String playerCorrette = (uid.equals(dbRef.getPlayer1ID())) ? "correttePlayer1" : "correttePlayer2";
                     String playerSbagliate = (uid.equals(dbRef.getPlayer1ID())) ? "sbagliatePlayer1" : "sbagliatePlayer2";
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerCorrette).setValue(corrette);
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerSbagliate).setValue(sbagliate);
+                    Log.d("RISP", "onDataChange: risposte 1 " + corrette);
+                    Log.d("RISP", "onDataChange: risposte 1 " + corrette );
                     corrette = 0;
                     sbagliate = 0;
-                    Intent intent1 = new Intent(getApplicationContext(),GameRisoluzionePartita.class);
-                    intent1.putExtra("dbMatch",dbMatchActual);
+                    corretteAv = 0;
+                    sbagliateAv = 0;
+                    Intent intent1 = new Intent(getApplicationContext(), GameRisoluzionePartita.class);
+                    intent1.putExtra("dbMatch", dbMatchActual);
                     startActivity(intent1);
-                } else{
-                    Toast.makeText(getApplicationContext(),"Sto aspettando il tuo avversario",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sto aspettando il tuo avversario", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -235,16 +248,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void nextQuestion(int answer){
-        if(dbRef.getPlayer1ID().equals(uid))
-            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child(""+actualQuestion).child("player1response").setValue(answer);
+    private void nextQuestion(int answer) {
+        if (dbRef.getPlayer1ID().equals(uid))
+            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child("" + actualQuestion).child("player1response").setValue(answer);
         else
-            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child(""+actualQuestion).child("player2response").setValue(answer);
+            databaseReference.child("games").child(dbRef.getGameRef()).child("questions").child("" + actualQuestion).child("player2response").setValue(answer);
 
 
         setColours(answer);
         actualQuestion++;
-        if(actualQuestion == totalQuestions){
+        if (actualQuestion == totalQuestions) {
             risposta1.setClickable(false);
             risposta2.setClickable(false);
             risoluzione_partita();
@@ -254,7 +267,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeStatusOnExit(){
+    private void changeStatusOnExit() {
         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
         databaseReference.child("users").child(playerID).child("points").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -279,10 +292,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         countDownTimer.cancel();
+                        qcdt.cancel();
                         GameActivity.this.finish();
                         databaseReference.child("games").child(dbRef.getGameRef()).child(playerStatus).setValue("offline");
                         risoluzione_partita();
-                        startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
                         GameActivity.super.onBackPressed();
                     }
                 })
@@ -302,7 +316,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public class MyCountDownTimer extends CountDownTimer{
+    public class QuestionCountDownTimer extends CountDownTimer {
+        private final static long questiontime = 7000;
+        private final static int qth = 70;
+        private ProgressBar pb;
+        public  QuestionCountDownTimer(ProgressBar pb){
+            super(questiontime, 50);
+            this.pb = pb;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int percentage = (int) (millisUntilFinished/qth);
+            pb.setProgress(percentage);
+        }
+
+        @Override
+        public void onFinish() {
+            if(actualQuestion < totalQuestions)
+                nextQuestion(0);
+            qcdt.cancel();
+        }
+    }
+
+    public class MyCountDownTimer extends CountDownTimer {
 
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
@@ -321,6 +358,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             risposta2.setBackground(getDrawable(R.drawable.game_button));
             risposta1.setClickable(true);
             risposta2.setClickable(true);
+            qcdt.start();
         }
     }
 }

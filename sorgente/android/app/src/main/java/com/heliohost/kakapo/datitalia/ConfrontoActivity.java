@@ -1,29 +1,23 @@
 package com.heliohost.kakapo.datitalia;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ConfrontoActivity extends AppCompatActivity {
 
+    String TAG = "DBP";
     private Spinner spinner_provincia1;
     private Spinner spinner_provincia2;
     private Button btnConfronta;
@@ -34,7 +28,6 @@ public class ConfrontoActivity extends AppCompatActivity {
     private ArrayList<Provincia> province;
     private ValueEventListener spinnerUpdater;
     private DatabaseReference provinces;
-    String TAG = "DBP";
 
     private void getSpinnerItem(View view) {
         spinner_provincia1 = view.findViewById(R.id.spinner_provincia1);
@@ -54,10 +47,10 @@ public class ConfrontoActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DataUtility.getInstance().googleConnection(this,this);
+        DataUtility.getInstance().googleConnection(this, this);
 
         this.provinces = DataUtility.getInstance().getProvinces();
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             mConfrontoSceltaFragment = new ConfrontoSceltaFragment();
             getSupportFragmentManager()
                     .beginTransaction()

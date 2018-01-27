@@ -1,9 +1,8 @@
 package com.heliohost.kakapo.datitalia;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,17 +18,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameRisoluzionePartita extends AppCompatActivity {
 
+    private static final String VINCITORE = "Il vincitore è ";
+    DBMatch dbMatch;
     private List<RisoluzionePartita> datiList = new ArrayList<>();
     private RisoluzionePartitaAdapter mAdapter;
     private RecyclerView rv;
-    DBMatch dbMatch;
     private DBMatch dbMatchActual;
     private String playerID;
     private int corrette = 0;
@@ -44,8 +42,6 @@ public class GameRisoluzionePartita extends AppCompatActivity {
     private TextView nome2;
     private TextView corretta;
     private Button esci;
-    private static final String VINCITORE = "Il vincitore è ";
-
 
     private void getPlayer2Name() {
         if (dbMatch.getPlayer2ID().equals("botID")) {
@@ -120,8 +116,8 @@ public class GameRisoluzionePartita extends AppCompatActivity {
                     String prov1 = dbMatchActual.getPlayer1Province();
                     String prov2 = dbMatchActual.getPlayer2Province();
                     String correct = (matchQuestion.getCorrectAnswer() == 1) ? prov1 : prov2;
-                    String risp1 = (matchQuestion.getPlayer1response() == 1) ? prov1 : prov2;
-                    String risp2 = (matchQuestion.getPlayer2response() == 1) ? prov1 : prov2;
+                    String risp1 = (matchQuestion.getPlayer1response() == 1) ? prov1 : (matchQuestion.getPlayer1response() == 2) ? prov2 : "None";
+                    String risp2 = (matchQuestion.getPlayer2response() == 1) ? prov1 : (matchQuestion.getPlayer2response() == 2) ? prov2 : "None";
                     RisoluzionePartita risoluzionePartita = new RisoluzionePartita(risp1, risp2, correct, domanda);
                     datiList.add(risoluzionePartita);
                 }

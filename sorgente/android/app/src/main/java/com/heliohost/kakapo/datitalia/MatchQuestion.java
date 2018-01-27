@@ -1,6 +1,5 @@
 package com.heliohost.kakapo.datitalia;
 
-import android.content.Intent;
 import android.support.annotation.Keep;
 
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -13,7 +12,7 @@ import java.io.Serializable;
 
 @IgnoreExtraProperties
 @Keep
-public class MatchQuestion implements Serializable{
+public class MatchQuestion implements Serializable {
     private String comparto;
     private Long valueProvincia1;
     private Long valueProvincia2;

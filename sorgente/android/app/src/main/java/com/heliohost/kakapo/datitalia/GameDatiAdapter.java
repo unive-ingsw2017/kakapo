@@ -16,19 +16,10 @@ public class GameDatiAdapter extends RecyclerView.Adapter<GameDatiAdapter.MyView
 
     private List<GameDatiPrepartita> datiList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView entrataProvincia, uscitaProvincia, titolo;
+    public GameDatiAdapter(List<GameDatiPrepartita> datiList) {
+        this.datiList = datiList;
+    }
 
-        public MyViewHolder(View view) {
-            super(view);
-            entrataProvincia = view.findViewById(R.id.entrata_prov);
-            uscitaProvincia = view.findViewById(R.id.uscita_prov);
-            titolo = view.findViewById(R.id.titolo);
-        }
-    }
-    public GameDatiAdapter(List<GameDatiPrepartita> datiList){
-        this.datiList=datiList;
-    }
     @Override
     public GameDatiAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -40,13 +31,24 @@ public class GameDatiAdapter extends RecyclerView.Adapter<GameDatiAdapter.MyView
     @Override
     public void onBindViewHolder(GameDatiAdapter.MyViewHolder holder, int position) {
         GameDatiPrepartita gameDati = datiList.get(position);
-        holder.entrataProvincia.setText("" + (gameDati.getEntrateProvincia()/100));
-        holder.uscitaProvincia.setText("" + (gameDati.getUsciteProvincia()/100));
+        holder.entrataProvincia.setText("" + (gameDati.getEntrateProvincia() / 100));
+        holder.uscitaProvincia.setText("" + (gameDati.getUsciteProvincia() / 100));
         holder.titolo.setText(gameDati.getTitolo());
     }
 
     @Override
     public int getItemCount() {
         return datiList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView entrataProvincia, uscitaProvincia, titolo;
+
+        public MyViewHolder(View view) {
+            super(view);
+            entrataProvincia = view.findViewById(R.id.entrata_prov);
+            uscitaProvincia = view.findViewById(R.id.uscita_prov);
+            titolo = view.findViewById(R.id.titolo);
+        }
     }
 }
