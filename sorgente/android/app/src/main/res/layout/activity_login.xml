@@ -35,7 +35,7 @@
         android:layout_marginBottom="34dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:src="@drawable/datitalia"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
