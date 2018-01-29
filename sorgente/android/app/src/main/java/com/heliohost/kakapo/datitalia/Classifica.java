@@ -61,7 +61,7 @@ public class Classifica extends AppCompatActivity {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(mAdapter);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            int i = 0;
+            int i = 1;
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,14 +72,14 @@ public class Classifica extends AppCompatActivity {
                     Long point = data.child("points").getValue(Long.class);
                     point *= -1;
                     String points = new String("" + point);
-                    User user = new User(username, Integer.parseInt(points), provincia);
+                    User user = new User(i + ")  " + username , Integer.parseInt(points), provincia);
                     datiList.add(user);
                     i++;
                     if (data.getKey().equals(FirebaseAuth.getInstance().getUid())) {
                         punteggioPlayer = findViewById(R.id.punteggio_player);
                         posizionePlayer = findViewById(R.id.posizione_player);
                         Log.d(TAG, "ENTRO");
-                        posizionePlayer.setText(getString(R.string.posizione_player) + "  " + i);
+                        posizionePlayer.setText(getString(R.string.posizione_player) + "  " + (i-1));
                         punteggioPlayer.setText(getString(R.string.punteggio_player) + "  " + points + " pt");
                     }
                     mAdapter.notifyDataSetChanged();

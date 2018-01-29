@@ -140,4 +140,25 @@
     <string name="game_text">Sfida i tuoi avversari online!</string>
     <string name="game_text2">In quale modalità vuoi giocare?</string>
     <string name="abbandona">Abbandona</string>
+
+    <!-- SLIDER INIZIALE -->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">AVANTI</string>
+    <string name="skip">SALTA</string>
+    <string name="start">INIZIA!</string>
+
+    <string name="slide_1_title">Benvenuto su datItalia!</string>
+    <string name="slide_1_desc">L\applicazione per visualizzare le entrate e le uscite relativi alle province italiane!</string>
+
+    <string name="slide_2_title">Confronto</string>
+    <string name="slide_2_desc">Esegui il confronto tra i dati di due province, riguardo ad entrate ed uscite</string>
+
+    <string name="slide_3_title">Gioca!</string>
+    <string name="slide_3_desc">Gioco con altre persone per vedere chi ne sa di più sulla sua provincia</string>
+
+    <string name="slide_4_title">Dati</string>
+    <string name="slide_4_desc">Visualizza su una mappa interattiva i dati di tutte le province italiane</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
 </resources>
