@@ -31,8 +31,8 @@ public class GameDatiAdapter extends RecyclerView.Adapter<GameDatiAdapter.MyView
     @Override
     public void onBindViewHolder(GameDatiAdapter.MyViewHolder holder, int position) {
         GameDatiPrepartita gameDati = datiList.get(position);
-        holder.entrataProvincia.setText("" + (gameDati.getEntrateProvincia() / 100));
-        holder.uscitaProvincia.setText("" + (gameDati.getUsciteProvincia() / 100));
+        holder.entrataProvincia.setText((DataUtility.getInstance().toDouble(gameDati.getEntrateProvincia())));
+        holder.uscitaProvincia.setText((DataUtility.getInstance().toDouble(gameDati.getUsciteProvincia())));
         holder.titolo.setText(gameDati.getTitolo());
     }
 

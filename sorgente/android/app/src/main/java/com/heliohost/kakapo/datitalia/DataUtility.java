@@ -86,6 +86,10 @@ public class DataUtility {
         return provincia.getNomeProvincia().replaceAll("[^a-zA-Z0-9]+", "");
     }
 
+    public String toDouble(Long val){
+        return String.format("%.2f €", (((double) val) / 100));
+    }
+
     public Map<Provincia, Address> getProvinciaAddressMap() {
         return provinciaAddressMap;
     }

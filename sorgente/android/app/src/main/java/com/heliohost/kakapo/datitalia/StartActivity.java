@@ -1,6 +1,7 @@
 package com.heliohost.kakapo.datitalia;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -152,7 +153,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, StartActivity.class));
-        finish();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }

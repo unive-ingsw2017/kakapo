@@ -5,21 +5,21 @@ package com.heliohost.kakapo.datitalia;
  */
 
 class GameDatiPrepartita {
-    private double entrateProvincia;
-    private double usciteProvincia;
+    private Long entrateProvincia;
+    private Long usciteProvincia;
     private String titolo;
 
-    public GameDatiPrepartita(String titolo, double entrateProvincia, double usciteProvincia) {
+    public GameDatiPrepartita(String titolo, Long entrateProvincia, Long usciteProvincia) {
         this.entrateProvincia = entrateProvincia;
         this.usciteProvincia = usciteProvincia;
         this.titolo = titolo;
     }
 
-    public double getEntrateProvincia() {
+    public Long getEntrateProvincia() {
         return entrateProvincia;
     }
 
-    public double getUsciteProvincia() {
+    public Long getUsciteProvincia() {
         return usciteProvincia;
     }
 

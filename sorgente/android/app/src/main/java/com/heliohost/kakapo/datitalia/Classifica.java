@@ -116,6 +116,10 @@ public class Classifica extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.impostazioni) {
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        }
+
         if (id == android.R.id.home) {
             onBackPressed();
         }

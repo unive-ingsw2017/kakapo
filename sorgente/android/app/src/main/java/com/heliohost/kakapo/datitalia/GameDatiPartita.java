@@ -95,7 +95,7 @@ public class GameDatiPartita extends Fragment {
             public void onFinish() {
                 timer.setText("finito");
                 //Match match = new Match("Sassari","Treviso");
-                Intent intent = new Intent(getContext(), GameActivity.class);
+                Intent intent = new Intent(getContext().getApplicationContext(), GameActivity.class);
                 intent.putExtra("dbMatch", dbMatch);
                 startActivity(intent);
             }

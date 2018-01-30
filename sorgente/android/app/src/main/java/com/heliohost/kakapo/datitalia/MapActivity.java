@@ -193,7 +193,7 @@ public class MapActivity extends AppCompatActivity implements ChildEventListener
                 if (provincia.getUscite().containsKey(compartoFilter)) {
                     uscita = provincia.getUscite().get(compartoFilter);
                 }
-                snippet = getString(R.string.map_snippet, entrata / 100, uscita / 100);
+                snippet = getString(R.string.map_snippet, ((double)entrata / 100), ((double)uscita / 100));
                 Log.d(TAG, "showProvincia: SNIPPET :" + snippet);
             }
             mapManager.insertMarker(

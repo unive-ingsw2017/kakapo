@@ -31,10 +31,10 @@ public class ConfrontoAdapter extends RecyclerView.Adapter<ConfrontoAdapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ConfrontoDati confrontoDati = datiList.get(position);
-        holder.entrataProvincia1.setText("" + (confrontoDati.getEntrataProvincia1() / 100));
-        holder.entrataProvincia2.setText("" + (confrontoDati.getEntrataProvincia2() / 100));
-        holder.uscitaProvincia1.setText("" + (confrontoDati.getUscitaProvincia1() / 100));
-        holder.uscitaProvincia2.setText("" + (confrontoDati.getUscitaProvincia2() / 100));
+        holder.entrataProvincia1.setText(DataUtility.getInstance().toDouble(confrontoDati.getEntrataProvincia1()));
+        holder.entrataProvincia2.setText(DataUtility.getInstance().toDouble(confrontoDati.getEntrataProvincia2()));
+        holder.uscitaProvincia1.setText(DataUtility.getInstance().toDouble(confrontoDati.getUscitaProvincia1()));
+        holder.uscitaProvincia2.setText(DataUtility.getInstance().toDouble(confrontoDati.getUscitaProvincia2()));
         holder.titolo.setText(confrontoDati.getTitolo());
     }
 
