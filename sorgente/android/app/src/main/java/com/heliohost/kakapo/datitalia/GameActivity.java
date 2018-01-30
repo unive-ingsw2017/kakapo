@@ -2,8 +2,10 @@ package com.heliohost.kakapo.datitalia;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -60,7 +62,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-
         dbRef = (DBMatch) getIntent().getSerializableExtra("dbMatch");
         totalQuestions = dbRef.getQuestions().size();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -75,6 +76,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         risposta2 = findViewById(R.id.risposta_2);
         textViewDomanda = findViewById(R.id.domanda);
 
+        mProgressBar.getProgressDrawable().setColorFilter(
+                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         //risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
         //risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
         risposta1.setBackground(getDrawable(R.drawable.game_button));
@@ -189,8 +192,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     String playerSbagliate = (uid.equals(dbRef.getPlayer1ID())) ? "sbagliatePlayer1" : "sbagliatePlayer2";
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerCorrette).setValue(corrette);
                     FirebaseDatabase.getInstance().getReference().child("games").child(dbRef.getGameRef()).child(playerSbagliate).setValue(sbagliate);
-                    Log.d("RISP", "onDataChange: risposte 1 " + corrette);
-                    Log.d("RISP", "onDataChange: risposte 1 " + corrette );
                     corrette = 0;
                     sbagliate = 0;
                     corretteAv = 0;
@@ -199,7 +200,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     intent1.putExtra("dbMatch", dbMatchActual);
                     startActivity(intent1);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Sto aspettando il tuo avversario", Toast.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.game_layout),"Attendi il tuo avversario",Snackbar.LENGTH_SHORT).show();
                 }
             }
 
@@ -352,8 +353,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onFinish() {
-            //risposta1.setBackgroundColor(getResources().getColor(R.color.pla_button_1));
-            //risposta2.setBackgroundColor(getResources().getColor(R.color.pla_button_2));
             risposta1.setBackground(getDrawable(R.drawable.game_button));
             risposta2.setBackground(getDrawable(R.drawable.game_button));
             risposta1.setClickable(true);

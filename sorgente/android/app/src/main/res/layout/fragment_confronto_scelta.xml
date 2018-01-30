@@ -69,6 +69,8 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_provincia2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_provincia2"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_size2"/>
 
 </android.support.constraint.ConstraintLayout>

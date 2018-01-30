@@ -1,6 +1,7 @@
 package com.heliohost.kakapo.datitalia;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,6 @@ public class GameDatiPartita extends Fragment {
     private RecyclerView rv;
     private List<GameDatiPrepartita> datiList = new ArrayList<>();
     private GameDatiAdapter mAdapter;
-    private TextView timer;
     private TextView nomeProv;
     private ProgressBar progressBar;
     private DatabaseReference mDatabase;
@@ -72,10 +72,10 @@ public class GameDatiPartita extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game_dati_partita, container, false);
 
-        timer = v.findViewById(R.id.timer);
         progressBar = v.findViewById(R.id.progress_bar);
         nomeProv = v.findViewById(R.id.nome_prov);
-
+        progressBar.getProgressDrawable().setColorFilter(
+                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         Bundle bundle = getArguments();
         dbMatch = (DBMatch) bundle.getSerializable("dbMatch");
         player = (FirebaseAuth.getInstance().getUid().equals(dbMatch.getPlayer1ID())) ? dbMatch.getPlayer2Province() : dbMatch.getPlayer1Province();
@@ -85,16 +85,12 @@ public class GameDatiPartita extends Fragment {
 
             @Override
             public void onTick(long l) {
-                timer.setText("" + l / 1000);
-
                 progressBar.setProgress((int) l/100);
                 i = i - 5;
             }
 
             @Override
             public void onFinish() {
-                timer.setText("finito");
-                //Match match = new Match("Sassari","Treviso");
                 Intent intent = new Intent(getContext().getApplicationContext(), GameActivity.class);
                 intent.putExtra("dbMatch", dbMatch);
                 startActivity(intent);

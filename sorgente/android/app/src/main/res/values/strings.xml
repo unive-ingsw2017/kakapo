@@ -135,7 +135,7 @@
     <string name="select_comparto">Seleziona un comparto</string>
     <string name="map_snippet">+ %.2f €\n- %.2f €</string>
     <string name="cambio_provincia_primo_accesso">Questo è il tuo primo accesso, seleziona la tua provincia di appartenenza:</string>
-    <string name="avvio_bot_message">Non è stato trovato alcun avversario al momento, vuoi giocare contro un giocatore virtuale o vuoi continuare ad attendere?</string>
+    <string name="avvio_bot_message">Non è stato trovato alcun avversario al momento, vuoi giocare contro un giocatore virtuale o vuoi continuare ad attendere? N.B. Giocherai con la tua provincia e il computer con una casuale!</string>
     <string name="button_confronto">Confronta</string>
     <string name="game_text">Sfida i tuoi avversari online!</string>
     <string name="game_text2">In quale modalità vuoi giocare?</string>
@@ -161,4 +161,6 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+    <string name="info_applicazione1">Tutti i dati presenti in questa applicazione provengono da siope.it</string>
+    <string name="info_applicazione2">Il SIOPE (Sistema informativo sulle operazioni degli enti pubblici), è un sistema di rilevazione telematica degli incassi e dei pagamenti effettuati dai tesorieri di tutte le amministrazioni pubbliche, che nasce dalla collaborazione tra la Ragioneria Generale dello Stato, la Banca d\'Italia e l\'ISTAT, in attuazione dall\'articolo 28 della legge n. 289/2002, disciplinato dall’articolo 14, commi dal 6 all’11, della legge n. 196 del 2009.</string>
 </resources>

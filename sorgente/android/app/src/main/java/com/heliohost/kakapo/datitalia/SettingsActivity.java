@@ -29,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private TextView changeProvincia;
     private TextView infoSviluppatori;
     private TextView segnalazioni;
+    private TextView infoApplicazione;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -63,11 +64,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         changeProvincia = findViewById(R.id.change_provincia);
         infoSviluppatori = findViewById(R.id.info_sviluppatori);
         segnalazioni = findViewById(R.id.segnalazioni);
+        infoApplicazione = findViewById(R.id.info_applicazione);
 
         changeProvincia.setOnClickListener(this);
         changeUsername.setOnClickListener(this);
         infoSviluppatori.setOnClickListener(this);
         segnalazioni.setOnClickListener(this);
+        infoApplicazione.setOnClickListener(this);
 
     }
 
@@ -82,6 +85,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.info_sviluppatori:
                 infoSviluppatoriDialog();
+                break;
+            case R.id.info_applicazione:
+                infoApplicazioneDialog();
                 break;
 
             case R.id.segnalazioni:
@@ -155,6 +161,21 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         final View inflator_sviluppatori = inflater.inflate(R.layout.info_sviluppatori, null);
         AlertDialog alert;
         builder.setView(inflator_sviluppatori);
+        builder.setPositiveButton("Indietro", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        alert = builder.create();
+        alert.show();
+    }
+
+    private void infoApplicazioneDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final View inflator_applicazione = inflater.inflate(R.layout.info_applicazione, null);
+        AlertDialog alert;
+        builder.setView(inflator_applicazione);
         builder.setPositiveButton("Indietro", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
