@@ -30,7 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity" />
+        <activity android:name=".StartActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GameActivity"
             android:label="Gioco"
@@ -67,8 +68,8 @@
             android:name=".MapActivity"
             android:label="Visualizza dati"
             android:screenOrientation="portrait" />
-        <activity android:name=".ActivityVetrina" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".WelcomeActivity"></activity>
     </application>
 

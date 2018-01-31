@@ -1,5 +1,7 @@
 package com.heliohost.kakapo.datitalia;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +12,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Scroller;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -230,10 +235,12 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onInfoButtonPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final View inflator_sviluppatori = inflater.inflate(R.layout.info_gioco, null);
         AlertDialog alert;
-        builder.setMessage(getResources().getString(R.string.info_gioco));
         builder.setTitle("Informazioni gioco");
-        builder.setPositiveButton("Indietro", new DialogInterface.OnClickListener() {
+        builder.setView(inflator_sviluppatori);
+        builder.setPositiveButton("Capito", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }

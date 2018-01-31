@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +55,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
         DataUtility.getInstance().googleConnection(this, this);
     }
 
@@ -116,7 +118,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            DataUtility.getInstance().signOut();
+            try {
+                DataUtility.getInstance().signOut();
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),"Errore! Attendi quanlche secondo e riprova",Toast.LENGTH_SHORT).show();
+            }
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             return true;
         }

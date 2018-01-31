@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -79,7 +80,7 @@ public class GameDatiPartita extends Fragment {
         Bundle bundle = getArguments();
         dbMatch = (DBMatch) bundle.getSerializable("dbMatch");
         player = (FirebaseAuth.getInstance().getUid().equals(dbMatch.getPlayer1ID())) ? dbMatch.getPlayer2Province() : dbMatch.getPlayer1Province();
-        nomeProv.setText("Stai giocando contro:" + player);
+        nomeProv.setText("Stai giocando contro: " + player);
         new CountDownTimer(10000, 50) {
             int i = 90;
 
@@ -91,9 +92,14 @@ public class GameDatiPartita extends Fragment {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(getContext().getApplicationContext(), GameActivity.class);
-                intent.putExtra("dbMatch", dbMatch);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(getContext().getApplicationContext(), GameActivity.class);
+                    intent.putExtra("dbMatch", dbMatch);
+                    startActivity(intent);
+                }catch (Exception e){
+                    Log.d("ERRORE", "onFinish: avvio bislacco");
+                }
+
             }
         }.start();
 
