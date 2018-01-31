@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -30,7 +31,6 @@ public class GameMenuActivity extends AppCompatActivity
         MatchMaker.MatchMakerInteraction {
 
     static final String TAG = "GameMenuActivity";
-
 
     private final static String NONE = "none";
     FirebaseDatabase database;
@@ -183,35 +183,39 @@ public class GameMenuActivity extends AppCompatActivity
 
     @Override
     public void onNazionaleButtonPressed() {
-        Log.d(TAG, "Ho premuto");
-        botTimer = new BotTimer(10000, 1000);
-        botTimer.start();
-        modalita = MatchMaker.NATIONAL;
-        Log.d(TAG, "onNazionaleButtonPressed: Ricerca Gioco Nazionale");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
-        fragmentTransaction.addToBackStack("b");
-        fragmentTransaction.commit();
-        if (nationalMatchMaker != null)
+
+        if (nationalMatchMaker != null) {
+            Log.d(TAG, "Ho premuto");
+            botTimer = new BotTimer(10000, 1000);
+            botTimer.start();
+            modalita = MatchMaker.NATIONAL;
+            Log.d(TAG, "onNazionaleButtonPressed: Ricerca Gioco Nazionale");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
+            fragmentTransaction.addToBackStack("b");
+            fragmentTransaction.commit();
             nationalMatchMaker.findMatch();
+        }
     }
 
     @Override
     public void onRegionaleButtonPressed() {
-        modalita = MatchMaker.REGIONAL;
-        botTimer = new BotTimer(10000, 1000);
-        botTimer.start();
-        Log.d(TAG, "onRegionaleButtonPressed: Ricerca Gioco Regionale");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
-        fragmentTransaction.addToBackStack("b");
-        fragmentTransaction.commit();
-        if (regionalMatchMaker != null)
+
+        if (regionalMatchMaker != null) {
+            modalita = MatchMaker.REGIONAL;
+            botTimer = new BotTimer(10000, 1000);
+            botTimer.start();
+            Log.d(TAG, "onRegionaleButtonPressed: Ricerca Gioco Regionale");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
+            fragmentTransaction.addToBackStack("b");
+            fragmentTransaction.commit();
             regionalMatchMaker.findMatch();
+        }
     }
 
 
@@ -224,16 +228,18 @@ public class GameMenuActivity extends AppCompatActivity
     @Override
     public void onRandomButtonPressed() {
         Log.d(TAG, "onRandomButtonPressed: Random GAME button pressed");
-        botTimer = new BotTimer(10000, 1000);
-        botTimer.start();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
-        fragmentTransaction.addToBackStack("avvio_caricamento");
-        fragmentTransaction.commit();
-        if (randomMatchMaker != null)
+        if (randomMatchMaker != null) {
+            modalita = MatchMaker.RANDOM;
+            botTimer = new BotTimer(10000, 1000);
+            botTimer.start();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            GameCaricamentoPROVVISORIO gameCaricamentoPROVVISORIO = new GameCaricamentoPROVVISORIO();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, gameCaricamentoPROVVISORIO, "Avvio caricamento");
+            fragmentTransaction.addToBackStack("avvio_caricamento");
+            fragmentTransaction.commit();
             randomMatchMaker.findMatch();
+        }
     }
 
     @Override
@@ -248,15 +254,40 @@ public class GameMenuActivity extends AppCompatActivity
 
     @Override
     public void onSecondPlayerFound(final DBMatch dbMatch) {
+
+
         botTimer.cancel();
         Bundle bundle = new Bundle();
         bundle.putSerializable("dbMatch", dbMatch);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        GameDatiPartita gameDatiPartita = new GameDatiPartita();
-        gameDatiPartita.setArguments(bundle);
-        fragmentTransaction.replace(R.id.fragment_container, gameDatiPartita, "Visualizza Dati provincia");
-        fragmentTransaction.addToBackStack("visualizza_dati").commit();
+        if(modalita.equals(MatchMaker.RANDOM)){
+            bundle.putString("prov1", dbMatch.getPlayer1Province());
+            bundle.putString("prov2", dbMatch.getPlayer2Province());
+            ConfrontoVisualizzaFragment cvf = new ConfrontoVisualizzaFragment();
+            new CountDownTimer(15000, 50){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent intent = new Intent(GameMenuActivity.this.getApplicationContext(), GameActivity.class);
+                    intent.putExtra("dbMatch", dbMatch);
+                    startActivity(intent);
+                }
+            }.start();
+            cvf.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment_container, cvf, "Confronto Dati");
+            fragmentTransaction.addToBackStack("confront_dati").commit();
+        }else {
+            GameDatiPartita gameDatiPartita = new GameDatiPartita();
+            gameDatiPartita.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment_container, gameDatiPartita, "Visualizza Dati provincia");
+            fragmentTransaction.addToBackStack("visualizza_dati").commit();
+        }
     }
 
 

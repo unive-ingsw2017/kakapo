@@ -25,7 +25,6 @@ public class ConfrontoSceltaFragment extends Fragment {
     private ArrayList<Provincia> province;
     private int lastprov1 = 0;
     private int lastprov2 = 0;
-    //private ArrayAdapter<Provincia> provAdapter;
     private ValueEventListener provincesUpdated;
     private DatabaseReference provinces;
 
