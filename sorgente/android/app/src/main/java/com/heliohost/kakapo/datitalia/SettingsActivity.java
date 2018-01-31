@@ -20,8 +20,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +34,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private TextView segnalazioni;
     private TextView infoApplicazione;
     private DatabaseReference mDatabase;
+    private TextView prov;
+    private TextView user;
+    private static final String US = "Username: ";
+    private static final String PRO = "Provincia: ";
+
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     private static void contactHelpAndSupport(Context context, String[] to, String subject) {
@@ -65,12 +73,29 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         infoSviluppatori = findViewById(R.id.info_sviluppatori);
         segnalazioni = findViewById(R.id.segnalazioni);
         infoApplicazione = findViewById(R.id.info_applicazione);
+        prov = findViewById(R.id.prov);
+        user = findViewById(R.id.user);
 
         changeProvincia.setOnClickListener(this);
         changeUsername.setOnClickListener(this);
         infoSviluppatori.setOnClickListener(this);
         segnalazioni.setOnClickListener(this);
         infoApplicazione.setOnClickListener(this);
+
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String username = dataSnapshot.child("username").getValue(String.class);
+                String provincia = dataSnapshot.child("provincia").getValue(String.class);
+                user.setText(US+username);
+                prov.setText(PRO+provincia);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

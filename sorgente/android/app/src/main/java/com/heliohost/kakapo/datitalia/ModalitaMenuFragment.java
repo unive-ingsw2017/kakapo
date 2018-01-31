@@ -33,6 +33,9 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
                 case R.id.btn_classifica:
                     mMenuListener.onClassificaButtonPressed();
                     break;
+                case R.id.info_gioco:
+                    mMenuListener.onInfoButtonPressed();
+                    break;
                 default:
                     break;
             }
@@ -54,6 +57,7 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
         v.findViewById(R.id.btn_classifica).setOnClickListener(this);
         v.findViewById(R.id.btn_nazionale).setOnClickListener(this);
         v.findViewById(R.id.btn_regionale).setOnClickListener(this);
+        v.findViewById(R.id.info_gioco).setOnClickListener(this);
         return v;
     }
 
@@ -83,5 +87,7 @@ public class ModalitaMenuFragment extends Fragment implements View.OnClickListen
         void onRandomButtonPressed();
 
         void onClassificaButtonPressed();
+
+        void onInfoButtonPressed();
     }
 }

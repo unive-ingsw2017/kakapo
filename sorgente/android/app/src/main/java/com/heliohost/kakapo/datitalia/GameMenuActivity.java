@@ -10,8 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -219,6 +221,21 @@ public class GameMenuActivity extends AppCompatActivity
     public void onClassificaButtonPressed() {
         Log.d(TAG, "onClassificaButtonPressed: Richiesta Classifica!");
         startActivity(new Intent(getApplicationContext(), Classifica.class));
+    }
+
+    @Override
+    public void onInfoButtonPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog alert;
+        builder.setMessage(getResources().getString(R.string.info_gioco));
+        builder.setTitle("Informazioni gioco");
+        builder.setPositiveButton("Indietro", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        alert = builder.create();
+        alert.show();
     }
 
     @Override

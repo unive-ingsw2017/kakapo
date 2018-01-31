@@ -84,18 +84,31 @@
         android:id="@+id/btn_classifica"
         android:layout_width="@dimen/button_rettangolo_width"
         android:layout_height="@dimen/button_rettangolo_height"
-        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_general"
         android:text="@string/mod_classifica"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/info_gioco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_random"
-        app:layout_constraintVertical_bias="0.353" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_random" />
+
+    <Button
+        android:id="@+id/info_gioco"
+        android:layout_width="@dimen/button_rettangolo_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/textview_border"
+        android:text="Informazioni gioco"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_size2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

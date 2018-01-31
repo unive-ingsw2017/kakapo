@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.heliohost.kakapo.datitalia.SettingsActivity"
-    tools:layout_editor_absoluteY="10dp">
+    tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,7 +16,6 @@
         android:elevation="4dp"
         android:theme="@style/AppTheme2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -28,14 +27,13 @@
         android:layout_height="19dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="onClick"
         android:text="Cambia provincia"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:text="Cambia Provincia" />
@@ -62,17 +60,13 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="384dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/info_applicazione"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_sviluppatori"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/info_sviluppatori" />
 
     <TextView
         android:id="@+id/change_username"
@@ -80,14 +74,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="onClick"
         android:text="Cambia username"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -97,14 +90,13 @@
         android:layout_height="17dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="onClick"
         android:text="Info sugli sviluppatori"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
@@ -112,21 +104,19 @@
         android:id="@+id/view6"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="268dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="384dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_applicazione" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/segnalazioni" />
 
@@ -136,14 +126,13 @@
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="onClick"
         android:text="Invia segnalazioni"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -153,17 +142,47 @@
         android:layout_height="23dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="onClick"
         android:text="Info sull'applicazione"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/view6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:text="Username: "
+        android:textSize="@dimen/font_size2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_sviluppatori"
-        app:layout_constraintVertical_bias="0.555" />
-    
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+    <TextView
+        android:id="@+id/prov"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="164dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:text="Provincia:"
+        android:textSize="@dimen/font_size2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user"
+        app:layout_constraintVertical_bias="0.0" />
+
 </android.support.constraint.ConstraintLayout>

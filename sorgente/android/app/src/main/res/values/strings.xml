@@ -140,7 +140,14 @@
     <string name="game_text">Sfida i tuoi avversari online!</string>
     <string name="game_text2">In quale modalità vuoi giocare?</string>
     <string name="abbandona">Abbandona</string>
-
+    <string name="info_gioco">La modalità gioco ti permetterà di sfidare altri giocatori in un quiz nel quale, chi risponderà al <b><i>maggior</i></b> numero di domande
+    vince!\n
+    Le modalità di gioco sono:\n
+    <b>Nazionale</b>: sfida altri giocatori italiani da tutte le province italiane. Sarete te e il tuo avversario, ognuno con la sua provincia\n
+    <b>Regionale</b>: sfida altri giocatori che giocano in province della tua stessa regione\n
+    <b>Random</b>: gioca con una provincia casuale, contro un'altra provincia casuale\n\n
+    Ricorda: non potrai giocare contro la tua stessa provincia.\n
+    Nel caso non vengano trovatori giocatori durante la ricerca, potrai giocare contro il computer! In questo caso, tu userai la tua provincia e lui una provincia casuale.\n</string>
     <!-- SLIDER INIZIALE -->
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">AVANTI</string>
