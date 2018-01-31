@@ -23,7 +23,7 @@
     <string name="action_settings">Impostazioni</string>
     <string name="signuot">Esci</string>
     <string name="play">Gioca</string>
-    <string name="view_data">Dati</string>
+    <string name="view_data">Visualizza dati</string>
     <string name="play_menu">Play Menù</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -155,13 +155,13 @@
     <string name="start">INIZIA!</string>
 
     <string name="slide_1_title">Benvenuto su datItalia!</string>
-    <string name="slide_1_desc">L\applicazione per visualizzare le entrate e le uscite relativi alle province italiane!</string>
+    <string name="slide_1_desc">L\applicazione per visualizzare le entrate e le uscite delle province italiane!</string>
 
     <string name="slide_2_title">Confronto</string>
-    <string name="slide_2_desc">Esegui il confronto tra i dati di due province, riguardo ad entrate ed uscite</string>
+    <string name="slide_2_desc">Confronta due province italiane sulle loro entrate e uscite </string>
 
     <string name="slide_3_title">Gioca!</string>
-    <string name="slide_3_desc">Gioco con altre persone per vedere chi ne sa di più sulla sua provincia</string>
+    <string name="slide_3_desc">Sfida altri giocatori per vedere chi ne sa di più sulla propria provincia</string>
 
     <string name="slide_4_title">Dati</string>
     <string name="slide_4_desc">Visualizza su una mappa interattiva i dati di tutte le province italiane</string>
